@@ -189,7 +189,7 @@ class _HomeViewState extends State<HomeView> {
                     ),
                   ),
                   Container(
-                      height: 200,
+                      height: 250,
                       width: Get.width,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
@@ -199,16 +199,30 @@ class _HomeViewState extends State<HomeView> {
                           return Padding(
                             padding: const EdgeInsets.only(
                                 bottom: 10.0, left: 10, right: 10),
-                            child: Container(
-                              width: 100,
-                              height: Get.height,
-                              decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      image: NetworkImage(
-                                          "${Url.imageLw500}${dataUp.posterPath}"),
-                                      fit: BoxFit.cover),
-                                  color: Colors.red,
-                                  borderRadius: BorderRadius.circular(10)),
+                            child: Column(
+                              children: [
+                                Container(
+                                  width: 150,
+                                  height: 200,
+                                  decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                          image: NetworkImage(
+                                              "${Url.imageLw500}${dataUp.posterPath}"),
+                                          fit: BoxFit.cover),
+                                      color: Colors.red,
+                                      borderRadius: BorderRadius.circular(10)),
+                                ),
+                                SizedBox(height: 10),
+                                Expanded(
+                                  child: Container(
+                                    width: 150,
+                                    child: Text(
+                                      "${dataUp.title}",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           );
                         },
@@ -254,7 +268,7 @@ class _HomeViewState extends State<HomeView> {
                     ),
                   ),
                   Container(
-                      height: 200,
+                      height: 250,
                       width: Get.width,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
@@ -264,16 +278,30 @@ class _HomeViewState extends State<HomeView> {
                           return Padding(
                             padding: const EdgeInsets.only(
                                 bottom: 10.0, left: 10, right: 10),
-                            child: Container(
-                              width: 100,
-                              height: Get.height,
-                              decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      image: NetworkImage(
-                                          "${Url.imageLw500}${dataUp.posterPath}"),
-                                      fit: BoxFit.cover),
-                                  color: Colors.red,
-                                  borderRadius: BorderRadius.circular(10)),
+                            child: Column(
+                              children: [
+                                Container(
+                                  width: 150,
+                                  height: 200,
+                                  decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                          image: NetworkImage(
+                                              "${Url.imageLw500}${dataUp.posterPath}"),
+                                          fit: BoxFit.cover),
+                                      color: Colors.red,
+                                      borderRadius: BorderRadius.circular(10)),
+                                ),
+                                SizedBox(height: 10),
+                                Expanded(
+                                  child: Container(
+                                    width: 150,
+                                    child: Text(
+                                      "${dataUp.title}",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           );
                         },
