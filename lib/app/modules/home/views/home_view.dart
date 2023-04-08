@@ -27,10 +27,10 @@ class _HomeViewState extends State<HomeView> {
       ),
       body: ListView(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(15.0),
+          const Padding(
+            padding: EdgeInsets.all(15.0),
             child: TextField(
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 filled: true,
                 fillColor: Colors.white,
                 suffixIcon: Icon(Icons.search),
@@ -48,12 +48,12 @@ class _HomeViewState extends State<HomeView> {
             future: controller.getDiscover(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(
+                return const Center(
                   child: CircularProgressIndicator(),
                 );
               }
               return ListView(
-                  physics: ScrollPhysics(),
+                  physics: const ScrollPhysics(),
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,
                   children: [
@@ -62,7 +62,7 @@ class _HomeViewState extends State<HomeView> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
+                          const Text(
                             "Now Playing",
                             style: TextStyle(
                                 color: Colors.white,
@@ -71,7 +71,7 @@ class _HomeViewState extends State<HomeView> {
                           ),
                           TextButton(
                             onPressed: () {},
-                            child: Text(
+                            child: const Text(
                               "See all",
                               style: TextStyle(
                                   color: Colors.red,
@@ -97,7 +97,7 @@ class _HomeViewState extends State<HomeView> {
                           ClipRRect(
                             borderRadius: BorderRadius.circular(20),
                             child: Container(
-                              foregroundDecoration: BoxDecoration(
+                              foregroundDecoration: const BoxDecoration(
                                 gradient: LinearGradient(
                                     begin: Alignment.topCenter,
                                     end: Alignment.bottomCenter,
@@ -133,14 +133,14 @@ class _HomeViewState extends State<HomeView> {
                                 children: [
                                   Text(
                                     " Rating : ${movie?.voteAverage}",
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold),
                                   ),
-                                  SizedBox(height: 5),
+                                  const SizedBox(height: 5),
                                   Text(
                                     "${movie?.title}",
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold),
                                   ),
@@ -152,12 +152,12 @@ class _HomeViewState extends State<HomeView> {
                   ]);
             },
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           FutureBuilder(
             future: controller.upComingMovie(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(
+                return const Center(
                   child: CircularProgressIndicator(),
                 );
               }
@@ -168,7 +168,7 @@ class _HomeViewState extends State<HomeView> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
+                        const Text(
                           "Up Coming Movies",
                           style: TextStyle(
                               color: Colors.white,
@@ -177,7 +177,7 @@ class _HomeViewState extends State<HomeView> {
                         ),
                         TextButton(
                           onPressed: () {},
-                          child: Text(
+                          child: const Text(
                             "See all",
                             style: TextStyle(
                                 color: Colors.red,
@@ -217,12 +217,12 @@ class _HomeViewState extends State<HomeView> {
               );
             },
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           FutureBuilder(
             future: controller.popularMovie(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(
+                return const Center(
                   child: CircularProgressIndicator(),
                 );
               }
@@ -233,7 +233,7 @@ class _HomeViewState extends State<HomeView> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
+                        const Text(
                           "Populars Movies",
                           style: TextStyle(
                               color: Colors.white,
@@ -242,7 +242,7 @@ class _HomeViewState extends State<HomeView> {
                         ),
                         TextButton(
                           onPressed: () {},
-                          child: Text(
+                          child: const Text(
                             "See all",
                             style: TextStyle(
                                 color: Colors.red,
