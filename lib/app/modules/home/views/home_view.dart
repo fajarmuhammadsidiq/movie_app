@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:movie_app/app/data/const.dart';
 
 import '../../../data/discover_model.dart';
+
 import '../controllers/home_controller.dart';
 
 class HomeView extends StatefulWidget {
@@ -19,13 +20,30 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
-        title: const Text('Dashboard'),
-        centerTitle: true,
+        title: const Text('What do you want to watch?'),
         backgroundColor: Colors.black,
       ),
       body: ListView(
         children: [
+          Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: TextField(
+              decoration: const InputDecoration(
+                filled: true,
+                fillColor: Colors.white,
+                suffixIcon: Icon(Icons.search),
+                hintText: "Search Movie",
+                border: OutlineInputBorder(
+                  borderSide: BorderSide.none,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(12),
+                  ),
+                ),
+              ),
+            ),
+          ),
           FutureBuilder<DiscoverModel>(
             future: controller.getDiscover(),
             builder: (context, snapshot) {
@@ -45,23 +63,27 @@ class _HomeViewState extends State<HomeView> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "Discover Movie ",
+                            "Now Playing",
                             style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 20),
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20),
                           ),
                           TextButton(
                             onPressed: () {},
                             child: Text(
                               "See all",
                               style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 20),
+                                  color: Colors.red,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20),
                             ),
                           )
                         ],
                       ),
                     ),
                     CarouselSlider.builder(
-                      itemCount: snapshot.data!.results.length,
+                      itemCount: snapshot.data?.results.length,
                       options: CarouselOptions(
                           height: 300,
                           aspectRatio: 2.0,
@@ -70,7 +92,7 @@ class _HomeViewState extends State<HomeView> {
                           autoPlayCurve: Curves.fastOutSlowIn,
                           scrollDirection: Axis.horizontal),
                       itemBuilder: (ctx, index, realIdx) {
-                        final movie = snapshot.data!.results[index];
+                        final movie = snapshot.data?.results[index];
                         return Stack(children: [
                           ClipRRect(
                             borderRadius: BorderRadius.circular(20),
@@ -88,7 +110,7 @@ class _HomeViewState extends State<HomeView> {
                                   borderRadius: BorderRadius.circular(20)),
                               child: Image.network(
                                   fit: BoxFit.cover,
-                                  "${Url.imageLw500}${movie.backdropPath}"),
+                                  "${Url.imageLw500}${movie?.backdropPath}"),
                             ),
                           ),
                           Positioned(
@@ -100,7 +122,7 @@ class _HomeViewState extends State<HomeView> {
                                   fit: BoxFit.cover,
                                   height: 150,
                                   width: 100,
-                                  "${Url.imageLw500}${movie.posterPath}"),
+                                  "${Url.imageLw500}${movie?.posterPath}"),
                             ),
                           ),
                           Positioned(
@@ -110,14 +132,14 @@ class _HomeViewState extends State<HomeView> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    " Rating : ${movie.voteAverage}",
+                                    " Rating : ${movie?.voteAverage}",
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold),
                                   ),
                                   SizedBox(height: 5),
                                   Text(
-                                    "${movie.title}",
+                                    "${movie?.title}",
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold),
@@ -131,25 +153,135 @@ class _HomeViewState extends State<HomeView> {
             },
           ),
           SizedBox(height: 10),
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Popular Movie ",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                ),
-                TextButton(
-                  onPressed: () {},
-                  child: Text(
-                    "See all",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+          FutureBuilder(
+            future: controller.upComingMovie(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              return Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Up Coming Movies",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20),
+                        ),
+                        TextButton(
+                          onPressed: () {},
+                          child: Text(
+                            "See all",
+                            style: TextStyle(
+                                color: Colors.red,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
-                )
-              ],
-            ),
+                  Container(
+                      height: 200,
+                      width: Get.width,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: snapshot.data!.results.length,
+                        itemBuilder: (context, index) {
+                          final dataUp = snapshot.data!.results[index];
+                          return Padding(
+                            padding: const EdgeInsets.only(
+                                bottom: 10.0, left: 10, right: 10),
+                            child: Container(
+                              width: 100,
+                              height: Get.height,
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      image: NetworkImage(
+                                          "${Url.imageLw500}${dataUp.posterPath}"),
+                                      fit: BoxFit.cover),
+                                  color: Colors.red,
+                                  borderRadius: BorderRadius.circular(10)),
+                            ),
+                          );
+                        },
+                      )),
+                ],
+              );
+            },
           ),
+          SizedBox(height: 10),
+          FutureBuilder(
+            future: controller.popularMovie(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              return Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Populars Movies",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20),
+                        ),
+                        TextButton(
+                          onPressed: () {},
+                          child: Text(
+                            "See all",
+                            style: TextStyle(
+                                color: Colors.red,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  Container(
+                      height: 200,
+                      width: Get.width,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: snapshot.data!.results.length,
+                        itemBuilder: (context, index) {
+                          final dataUp = snapshot.data!.results[index];
+                          return Padding(
+                            padding: const EdgeInsets.only(
+                                bottom: 10.0, left: 10, right: 10),
+                            child: Container(
+                              width: 100,
+                              height: Get.height,
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      image: NetworkImage(
+                                          "${Url.imageLw500}${dataUp.posterPath}"),
+                                      fit: BoxFit.cover),
+                                  color: Colors.red,
+                                  borderRadius: BorderRadius.circular(10)),
+                            ),
+                          );
+                        },
+                      )),
+                ],
+              );
+            },
+          )
         ],
       ),
     );

@@ -1,16 +1,16 @@
 // To parse this JSON data, do
 //
-//     final discoverModel = discoverModelFromJson(jsonString);
+//     final popularfMovie = popularfMovieFromJson(jsonString);
 
 import 'dart:convert';
 
-DiscoverModel discoverModelFromJson(String str) =>
-    DiscoverModel.fromJson(json.decode(str));
+PopularfMovie popularfMovieFromJson(String str) =>
+    PopularfMovie.fromJson(json.decode(str));
 
-String discoverModelToJson(DiscoverModel data) => json.encode(data.toJson());
+String popularfMovieToJson(PopularfMovie data) => json.encode(data.toJson());
 
-class DiscoverModel {
-  DiscoverModel({
+class PopularfMovie {
+  PopularfMovie({
     required this.page,
     required this.results,
     required this.totalPages,
@@ -22,7 +22,7 @@ class DiscoverModel {
   int totalPages;
   int totalResults;
 
-  factory DiscoverModel.fromJson(Map<String, dynamic> json) => DiscoverModel(
+  factory PopularfMovie.fromJson(Map<String, dynamic> json) => PopularfMovie(
         page: json["page"],
         results:
             List<Result>.from(json["results"].map((x) => Result.fromJson(x))),
