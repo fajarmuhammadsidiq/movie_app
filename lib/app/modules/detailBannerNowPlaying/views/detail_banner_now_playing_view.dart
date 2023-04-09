@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:movie_app/app/data/const.dart';
 import 'package:movie_app/app/modules/detailBannerNowPlaying/views/youtube_widget.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import '../../../data/cast_model.dart';
 import '../../../data/discover_model.dart';
 import '../../../data/image_const.dart';
 import '../controllers/detail_banner_now_playing_controller.dart';
@@ -168,6 +169,7 @@ class DetailBannerNowPlayingView
                     }),
               ),
               TabBar(
+                  dividerColor: Colors.red,
                   indicatorColor: Colors.red,
                   labelColor: Colors.white,
                   tabs: [Text("Overviews"), Text("Cast"), Text("Simmiliars")]),
@@ -191,10 +193,72 @@ class DetailBannerNowPlayingView
                       ],
                     ),
                   ),
-                  Text(
-                    "${movie.overview}",
-                    style: TextStyle(color: Colors.white),
-                  ),
+                  FutureBuilder<CasrMovie>(
+                      future: controller.castMovie(movie.id),
+                      builder: (context, snapshotCast) {
+                        if (snapshotCast.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                        if (!snapshotCast.hasData) {
+                          return Text("Tidak ada data");
+                        }
+
+                        return ListView.builder(
+                          itemCount: snapshotCast.data!.cast!.length,
+                          itemBuilder: (context, index) {
+                            final cast = snapshotCast.data!.cast![index];
+                            String defaultImage =
+                                "https://ui-avatars.com/api/?name=${cast.name}";
+                            return Card(
+                              color: Colors.black,
+                              child: ListTile(
+                                leading: Container(
+                                  height: 100,
+                                  width: 50,
+                                  decoration: BoxDecoration(
+                                    color: Colors.black,
+                                    image: DecorationImage(
+                                        image: NetworkImage(
+                                          "${Url.imageLw500}${cast.profilePath}" !=
+                                                  null
+                                              ? "${Url.imageLw500}${cast.profilePath}" !=
+                                                      "https://image.tmdb.org/t/p/w500null"
+                                                  ? "${Url.imageLw500}${cast.profilePath}"
+                                                  : defaultImage
+                                              : defaultImage,
+                                        ),
+                                        fit: BoxFit.fill),
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                ),
+                                title: Text(
+                                  "${cast.name}",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                subtitle: Row(
+                                  children: [
+                                    Text(
+                                      "Known as a ",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                    Expanded(
+                                      child: Text(
+                                        "${cast.character}",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        );
+                      }),
                   Text(
                     "${movie.overview}",
                     style: TextStyle(color: Colors.white),
