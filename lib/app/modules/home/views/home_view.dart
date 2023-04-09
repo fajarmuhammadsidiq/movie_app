@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:movie_app/app/data/const.dart';
+import 'package:movie_app/app/routes/app_pages.dart';
 
 import '../../../data/discover_model.dart';
 
+import '../../../data/popularMovie.dart';
+import '../../../data/upComing_model.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends StatefulWidget {
@@ -96,21 +99,30 @@ class _HomeViewState extends State<HomeView> {
                         return Stack(children: [
                           ClipRRect(
                             borderRadius: BorderRadius.circular(20),
-                            child: Container(
-                              foregroundDecoration: const BoxDecoration(
-                                gradient: LinearGradient(
-                                    begin: Alignment.topCenter,
-                                    end: Alignment.bottomCenter,
-                                    colors: [Colors.transparent, Colors.black]),
+                            child: InkWell(
+                              onTap: () {
+                                Get.toNamed(Routes.DETAIL_BANNER_NOW_PLAYING,
+                                    arguments: movie);
+                              },
+                              child: Container(
+                                foregroundDecoration: const BoxDecoration(
+                                  gradient: LinearGradient(
+                                      begin: Alignment.topCenter,
+                                      end: Alignment.bottomCenter,
+                                      colors: [
+                                        Colors.transparent,
+                                        Colors.black
+                                      ]),
+                                ),
+                                height: 300,
+                                width: Get.width,
+                                decoration: BoxDecoration(
+                                    color: Colors.amber,
+                                    borderRadius: BorderRadius.circular(20)),
+                                child: Image.network(
+                                    fit: BoxFit.cover,
+                                    "${Url.imageLw500}${movie?.backdropPath}"),
                               ),
-                              height: 300,
-                              width: Get.width,
-                              decoration: BoxDecoration(
-                                  color: Colors.amber,
-                                  borderRadius: BorderRadius.circular(20)),
-                              child: Image.network(
-                                  fit: BoxFit.cover,
-                                  "${Url.imageLw500}${movie?.backdropPath}"),
                             ),
                           ),
                           Positioned(
@@ -153,7 +165,7 @@ class _HomeViewState extends State<HomeView> {
             },
           ),
           const SizedBox(height: 10),
-          FutureBuilder(
+          FutureBuilder<UpComingMovie>(
             future: controller.upComingMovie(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
@@ -232,7 +244,7 @@ class _HomeViewState extends State<HomeView> {
             },
           ),
           const SizedBox(height: 10),
-          FutureBuilder(
+          FutureBuilder<PopularfMovie>(
             future: controller.popularMovie(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
@@ -272,9 +284,9 @@ class _HomeViewState extends State<HomeView> {
                       width: Get.width,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        itemCount: snapshot.data!.results.length,
+                        itemCount: snapshot.data?.results.length,
                         itemBuilder: (context, index) {
-                          final dataUp = snapshot.data!.results[index];
+                          var dataUp = snapshot.data?.results[index];
                           return Padding(
                             padding: const EdgeInsets.only(
                                 bottom: 10.0, left: 10, right: 10),
@@ -286,7 +298,7 @@ class _HomeViewState extends State<HomeView> {
                                   decoration: BoxDecoration(
                                       image: DecorationImage(
                                           image: NetworkImage(
-                                              "${Url.imageLw500}${dataUp.posterPath}"),
+                                              "${Url.imageLw500}${dataUp?.posterPath}"),
                                           fit: BoxFit.cover),
                                       color: Colors.red,
                                       borderRadius: BorderRadius.circular(10)),
@@ -296,7 +308,7 @@ class _HomeViewState extends State<HomeView> {
                                   child: Container(
                                     width: 150,
                                     child: Text(
-                                      "${dataUp.title}",
+                                      "${dataUp?.title}",
                                       style: TextStyle(color: Colors.white),
                                     ),
                                   ),

@@ -24,12 +24,9 @@ class HomeController extends GetxController {
     String url =
         "https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}";
     var response = await http.get(Uri.parse(url));
-    final data = json.decode(response.body) as Map<String, dynamic>;
-    if (response.statusCode == 200) {
-      print("HIT API SUKSES");
-    } else {
-      print("Hit API Gagal");
-    }
+    Map<String, dynamic> data =
+        json.decode(response.body) as Map<String, dynamic>;
+
     return GenreMovie.fromJson(data);
   }
 
@@ -37,27 +34,19 @@ class HomeController extends GetxController {
     String url =
         "https://api.themoviedb.org/3/movie/upcoming?api_key=${apiKey}&page=2";
     var response = await http.get(Uri.parse(url));
-    final data = json.decode(response.body) as Map<String, dynamic>;
+    Map<String, dynamic> data =
+        json.decode(response.body) as Map<String, dynamic>;
 
-    if (response.statusCode == 200) {
-      print("HIT API SUKSES");
-    } else {
-      print("Hit API Gagal");
-    }
     return UpComingMovie.fromJson(data);
   }
 
   Future<PopularfMovie> popularMovie() async {
     String url =
-        "https://api.themoviedb.org/3/movie/popular?api_key=$apiKey&page=1";
+        "https://api.themoviedb.org/3/movie/popular?api_key=$apiKey&language=en-US&page=1";
     var response = await http.get(Uri.parse(url));
-    final data = json.decode(response.body) as Map<String, dynamic>;
+    Map<String, dynamic> data =
+        json.decode(response.body) as Map<String, dynamic>;
 
-    if (response.statusCode == 200) {
-      print("HIT API SUKSES");
-    } else {
-      print("Hit API Gagal");
-    }
     return PopularfMovie.fromJson(data);
   }
 }

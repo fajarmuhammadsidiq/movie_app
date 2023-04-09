@@ -41,7 +41,7 @@ class PopularfMovie {
 class Result {
   Result({
     required this.adult,
-    required this.backdropPath,
+    this.backdropPath,
     required this.genreIds,
     required this.id,
     required this.originalLanguage,
@@ -57,7 +57,7 @@ class Result {
   });
 
   bool adult;
-  String backdropPath;
+  String? backdropPath;
   List<int> genreIds;
   int id;
   OriginalLanguage originalLanguage;
@@ -71,22 +71,22 @@ class Result {
   double voteAverage;
   int voteCount;
 
-  factory Result.fromJson(Map<String, dynamic> json) => Result(
-        adult: json["adult"],
-        backdropPath: json["backdrop_path"],
-        genreIds: List<int>.from(json["genre_ids"].map((x) => x)),
-        id: json["id"],
+  factory Result.fromJson(Map<String, dynamic>? json) => Result(
+        adult: json?["adult"],
+        backdropPath: json?["backdrop_path"],
+        genreIds: List<int>.from(json?["genre_ids"].map((x) => x)),
+        id: json?["id"],
         originalLanguage:
-            originalLanguageValues.map[json["original_language"]]!,
-        originalTitle: json["original_title"],
-        overview: json["overview"],
-        popularity: json["popularity"]?.toDouble(),
-        posterPath: json["poster_path"],
-        releaseDate: DateTime.parse(json["release_date"]),
-        title: json["title"],
-        video: json["video"],
-        voteAverage: json["vote_average"]?.toDouble(),
-        voteCount: json["vote_count"],
+            originalLanguageValues.map[json?["original_language"]]!,
+        originalTitle: json?["original_title"],
+        overview: json?["overview"],
+        popularity: json?["popularity"]?.toDouble(),
+        posterPath: json?["poster_path"],
+        releaseDate: DateTime.parse(json?["release_date"]),
+        title: json?["title"],
+        video: json?["video"],
+        voteAverage: json?["vote_average"]?.toDouble(),
+        voteCount: json?["vote_count"],
       );
 
   Map<String, dynamic> toJson() => {
