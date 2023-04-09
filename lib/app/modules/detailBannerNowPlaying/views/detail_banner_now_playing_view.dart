@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:get/get.dart';
 import 'package:movie_app/app/data/const.dart';
+import 'package:movie_app/app/data/detail_model.dart';
 import 'package:movie_app/app/modules/detailBannerNowPlaying/views/youtube_widget.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import '../../../data/cast_model.dart';
@@ -18,269 +19,294 @@ class DetailBannerNowPlayingView
 
     return Scaffold(
         backgroundColor: Colors.black,
-        body: DefaultTabController(
-          length: 3,
-          child: Container(
-            width: Get.width,
-            height: Get.height,
-            color: Colors.black,
-            child: Column(children: [
-              Container(
-                child: Stack(
-                  children: [
-                    Container(
-                      foregroundDecoration: const BoxDecoration(
-                        gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: [Colors.transparent, Colors.black]),
-                      ),
-                      height: 300,
-                      width: Get.width,
-                      child: Image.network(
-                        "${Url.imageLw500}${movie?.backdropPath}",
-                        fit: BoxFit.cover,
-                      ),
+        body: SingleChildScrollView(
+          child: Column(children: [
+            Container(
+              height: 300,
+              width: Get.width,
+              child: Stack(
+                children: [
+                  Container(
+                    foregroundDecoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [Colors.transparent, Colors.black]),
                     ),
-                    Positioned(
-                      bottom: 90,
-                      left: 20,
-                      child: Column(
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(20),
-                            child: Container(
-                              width: 100,
-                              height: 150,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20)),
-                              child: Image.network(
-                                "${Url.imageLw500}${movie?.posterPath}",
-                                fit: BoxFit.cover,
-                              ),
+                    height: 300,
+                    width: Get.width,
+                    child: Image.network(
+                      "${Url.imageLw500}${movie?.backdropPath}",
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 90,
+                    left: 20,
+                    child: Column(
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: Container(
+                            width: 100,
+                            height: 150,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20)),
+                            child: Image.network(
+                              "${Url.imageLw500}${movie?.posterPath}",
+                              fit: BoxFit.cover,
                             ),
                           ),
-                        ],
-                      ),
-                    ),
-                    Positioned(
-                        left: 20,
-                        bottom: 10,
-                        child: Container(
-                          width: 200,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "${movie?.title}",
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),
-                              ),
-                              Text(
-                                "Rating : ${movie?.voteAverage}",
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),
-                              ),
-                            ],
-                          ),
-                        )),
-                    Positioned(
-                        top: 50,
-                        child: BackButton(
-                          color: Colors.white,
-                        ))
-                  ],
-                ),
-              ),
-              Container(
-                height: 180,
-                width: Get.width,
-                child: FutureBuilder(
-                    future: controller.trailerMovie(movie!.id.toString()),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }
-                      final trailer = snapshot.data!.results;
-                      return ListView.separated(
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) {
-                            final trailer = snapshot.data!.results[index];
-
-                            return Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Stack(
-                                children: [
-                                  ImageNetworkWidget(
-                                    radius: 12,
-                                    type: TypeSrcImg.external,
-                                    imageSrc: YoutubePlayer.getThumbnail(
-                                      videoId: trailer.key,
-                                    ),
-                                  ),
-                                  Positioned.fill(
-                                    child: Center(
-                                      child: Container(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 6.0,
-                                        ),
-                                        decoration: BoxDecoration(
-                                          color: Colors.red,
-                                          borderRadius: BorderRadius.circular(
-                                            6.0,
-                                          ),
-                                        ),
-                                        child: const Icon(
-                                          Icons.play_arrow,
-                                          color: Colors.white,
-                                          size: 32.0,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Positioned.fill(
-                                    child: Material(
-                                      color: Colors.transparent,
-                                      child: InkWell(
-                                        onTap: () {
-                                          Get.to(
-                                            YoutubePlayerWidget(
-                                              youtubeKey: trailer.key,
-                                            ),
-                                          );
-                                        },
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                          separatorBuilder: (context, index) {
-                            return SizedBox(width: 5);
-                          },
-                          itemCount: snapshot.data!.results.length);
-                    }),
-              ),
-              TabBar(
-                  dividerColor: Colors.red,
-                  indicatorColor: Colors.red,
-                  labelColor: Colors.white,
-                  tabs: [Text("Overviews"), Text("Cast"), Text("Simmiliars")]),
-              Expanded(
-                child: TabBarView(children: [
-                  Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Release Date : \n${DateFormat.yMMMEd().format(DateTime.parse("${movie.releaseDate}"))}",
-                          style: TextStyle(color: Colors.white),
                         ),
-                        SizedBox(height: 20),
-                        Text(
-                          textAlign: TextAlign.justify,
-                          "${movie.overview}",
-                          style: TextStyle(color: Colors.white),
-                        )
                       ],
                     ),
                   ),
-                  FutureBuilder<CasrMovie>(
-                      future: controller.castMovie(movie.id),
-                      builder: (context, snapshotCast) {
-                        if (snapshotCast.connectionState ==
-                            ConnectionState.waiting) {
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        }
-                        if (!snapshotCast.hasData) {
-                          return Text("Tidak ada data");
-                        }
+                  Positioned(
+                      left: 20,
+                      bottom: 10,
+                      child: Container(
+                        width: 200,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "${movie?.title}",
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
+                            Text(
+                              "Rating : ${movie?.voteAverage}",
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
+                          ],
+                        ),
+                      )),
+                  Positioned(
+                      top: 50,
+                      child: BackButton(
+                        color: Colors.white,
+                      ))
+                ],
+              ),
+            ),
+            Container(
+              height: 180,
+              width: Get.width,
+              child: FutureBuilder(
+                  future: controller.trailerMovie(movie!.id.toString()),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    final trailer = snapshot.data!.results;
+                    return ListView.separated(
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) {
+                          final trailer = snapshot.data!.results[index];
 
-                        return ListView.builder(
-                          itemCount: snapshotCast.data!.cast!.length,
-                          itemBuilder: (context, index) {
-                            final cast = snapshotCast.data!.cast![index];
-                            String defaultImage =
-                                "https://ui-avatars.com/api/?name=${cast.name}";
-                            return Card(
-                              color: Colors.black,
-                              child: ListTile(
-                                leading: Container(
-                                  height: 100,
-                                  width: 50,
-                                  decoration: BoxDecoration(
-                                    color: Colors.black,
-                                    image: DecorationImage(
-                                        image: NetworkImage(
-                                          "${Url.imageLw500}${cast.profilePath}" !=
-                                                  null
-                                              ? "${Url.imageLw500}${cast.profilePath}" !=
-                                                      "https://image.tmdb.org/t/p/w500null"
-                                                  ? "${Url.imageLw500}${cast.profilePath}"
-                                                  : defaultImage
-                                              : defaultImage,
-                                        ),
-                                        fit: BoxFit.fill),
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                ),
-                                title: Text(
-                                  "${cast.name}",
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                                subtitle: Row(
-                                  children: [
-                                    Text(
-                                      "Known as a ",
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                    Expanded(
-                                      child: Text(
-                                        "${cast.character}",
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                  ],
+                          return Stack(
+                            children: [
+                              ImageNetworkWidget(
+                                radius: 12,
+                                type: TypeSrcImg.external,
+                                imageSrc: YoutubePlayer.getThumbnail(
+                                  videoId: trailer.key,
                                 ),
                               ),
-                            );
-                          },
-                        );
-                      }),
-                  Text(
-                    "${movie.overview}",
-                    style: TextStyle(color: Colors.white),
-                  )
-                ]),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: SizedBox(
-                    height: 50,
-                    width: Get.width,
-                    child: ElevatedButton.icon(
-                        style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
+                              Positioned.fill(
+                                child: Center(
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 6.0,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: Colors.red,
+                                      borderRadius: BorderRadius.circular(
+                                        6.0,
+                                      ),
+                                    ),
+                                    child: const Icon(
+                                      Icons.play_arrow,
+                                      color: Colors.white,
+                                      size: 32.0,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Positioned.fill(
+                                child: Material(
+                                  color: Colors.transparent,
+                                  child: InkWell(
+                                    onTap: () {
+                                      Get.to(
+                                        YoutubePlayerWidget(
+                                          youtubeKey: trailer.key,
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                        separatorBuilder: (context, index) {
+                          return SizedBox(width: 5);
+                        },
+                        itemCount: snapshot.data!.results.length);
+                  }),
+            ),
+            FutureBuilder<DetailMovie>(
+                future: controller.detailMovie(movie.id),
+                builder: (context, snapshotCast) {
+                  if (snapshotCast.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  if (!snapshotCast.hasData) {
+                    return Text(
+                      "Tidak ada data",
+                      style: TextStyle(color: Colors.white),
+                    );
+                  }
+                  final genre = snapshotCast.data!.genres!
+                      .map((e) => Container(
+                            alignment: Alignment.center,
+                            height: 50,
+                            width: 100,
+                            decoration: BoxDecoration(
+                                color: Color.fromARGB(255, 216, 20, 6),
                                 borderRadius: BorderRadius.circular(20)),
-                            backgroundColor: Colors.red),
-                        onPressed: () {},
-                        icon: Icon(Icons.book),
-                        label: Text("Favorites"))),
-              )
-            ]),
-          ),
+                            child: Text(
+                              "${e.name}",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ))
+                      .toList();
+                  return Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Container(
+                      height: 400,
+                      width: Get.width,
+                      color: Colors.black,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("RELEASE DATE:",
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontStyle: FontStyle.italic)),
+                          SizedBox(height: 10),
+                          Row(
+                            children: [
+                              Icon(Icons.calendar_month, color: Colors.white),
+                              SizedBox(width: 20),
+                              Text(
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                  "${snapshotCast.data!.releaseDate}"),
+                            ],
+                          ),
+                          SizedBox(height: 10),
+                          Text("GENRES",
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontStyle: FontStyle.italic)),
+                          SizedBox(height: 10),
+                          Wrap(
+                            spacing: 10,
+                            runSpacing: 10,
+                            children: genre,
+                          ),
+                          SizedBox(height: 10),
+                          Text(
+                            "OVERVIEWS",
+                            style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontStyle: FontStyle.italic),
+                          ),
+                          SizedBox(height: 10),
+                          Text(
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                              textAlign: TextAlign.justify,
+                              "${snapshotCast.data!.overview}"),
+                          SizedBox(height: 10),
+                          Container(
+                            width: Get.width,
+                            height: 50,
+                            color: Colors.green,
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    width: Get.width,
+                                    height: Get.height,
+                                    color: Colors.yellow,
+                                    child: Text("${snapshotCast.data!.budget}",
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black,
+                                        )),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    width: Get.width,
+                                    height: Get.height,
+                                    color: Colors.green,
+                                    child: Text("${snapshotCast.data!.revenue}",
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                        )),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  );
+                }),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: SizedBox(
+                  height: 50,
+                  width: Get.width,
+                  child: ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20)),
+                          backgroundColor: Color.fromARGB(255, 216, 20, 6)),
+                      onPressed: () {},
+                      icon: Icon(Icons.book),
+                      label: Text("Favorites"))),
+            )
+          ]),
         ));
   }
 }
