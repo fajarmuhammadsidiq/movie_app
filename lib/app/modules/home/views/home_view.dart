@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:movie_app/app/data/const.dart';
+import 'package:movie_app/app/modules/searchPage/views/search_page_view.dart';
 import 'package:movie_app/app/routes/app_pages.dart';
 
 import '../../../data/discover_model.dart';
@@ -25,26 +26,33 @@ class _HomeViewState extends State<HomeView> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
+        actions: [
+          IconButton(
+              onPressed: () => Get.toNamed(Routes.SEARCH_PAGE),
+              icon: Icon(
+                Icons.search,
+                color: Colors.red,
+              ))
+        ],
         title: const Text('What do you want to watch?'),
         backgroundColor: Colors.black,
       ),
       body: ListView(
         children: [
-          const Padding(
-            padding: EdgeInsets.all(15.0),
-            child: TextField(
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.white,
-                suffixIcon: Icon(Icons.search),
-                hintText: "Search Movie",
-                border: OutlineInputBorder(
-                  borderSide: BorderSide.none,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(12),
-                  ),
-                ),
-              ),
+          Container(
+            padding: EdgeInsets.all(10),
+            width: Get.width,
+            height: 100,
+            color: Colors.black,
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(children: [
+                ContainerCategory(),
+                ContainerCategory(),
+                ContainerCategory(),
+                ContainerCategory(),
+                ContainerCategory(),
+              ]),
             ),
           ),
           FutureBuilder<DiscoverModel>(
@@ -324,6 +332,22 @@ class _HomeViewState extends State<HomeView> {
           )
         ],
       ),
+    );
+  }
+}
+
+class ContainerCategory extends StatelessWidget {
+  const ContainerCategory({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(right: 5),
+      width: 100,
+      height: 50,
+      color: Colors.red,
     );
   }
 }

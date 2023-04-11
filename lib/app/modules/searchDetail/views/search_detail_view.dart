@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:get/get.dart';
-import 'package:movie_app/app/data/const.dart';
-import 'package:movie_app/app/data/detail_model.dart';
-import 'package:movie_app/app/modules/detailBannerNowPlaying/views/youtube_widget.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
-import '../../../data/cast_model.dart';
-import '../../../data/discover_model.dart';
-import '../../../data/image_const.dart';
-import '../controllers/detail_banner_now_playing_controller.dart';
 
-class DetailBannerNowPlayingView
-    extends GetView<DetailBannerNowPlayingController> {
-  const DetailBannerNowPlayingView({Key? key}) : super(key: key);
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+
+import '../../../data/const.dart';
+import '../../../data/detail_model.dart';
+import '../../../data/image_const.dart';
+import '../../../data/search_mode.dart';
+import '../../detailBannerNowPlaying/views/youtube_widget.dart';
+import '../controllers/search_detail_controller.dart';
+
+class SearchDetailView extends GetView<SearchDetailController> {
+  const SearchDetailView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    Result? movie = Get.arguments;
+    Map<String, dynamic> movie = Get.arguments;
+    print(movie["backdropPath"]);
     final currencyFormatter = NumberFormat.currency(locale: 'en_US');
     return Scaffold(
         backgroundColor: Colors.black,
@@ -38,7 +39,7 @@ class DetailBannerNowPlayingView
                       height: 300,
                       width: Get.width,
                       child: Image.network(
-                        "${Url.imageLw500}${movie?.backdropPath}",
+                        "https://image.tmdb.org/t/p/w92${movie['backdrop_path']}",
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -55,7 +56,7 @@ class DetailBannerNowPlayingView
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20)),
                               child: Image.network(
-                                "${Url.imageLw500}${movie?.posterPath}",
+                                "https://image.tmdb.org/t/p/w92${movie['poster_path']}",
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -72,14 +73,14 @@ class DetailBannerNowPlayingView
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "${movie?.title}",
+                                "${movie["title"]}",
                                 style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white),
                               ),
                               Text(
-                                "Rating : ${movie?.voteAverage}",
+                                "Rating : ${movie["voteAverage"]}",
                                 style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
@@ -100,7 +101,7 @@ class DetailBannerNowPlayingView
                 height: 180,
                 width: Get.width,
                 child: FutureBuilder(
-                    future: controller.trailerMovie(movie!.id.toString()),
+                    future: controller.trailerMovie(movie["id"].toString()),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Center(
@@ -166,7 +167,7 @@ class DetailBannerNowPlayingView
                     }),
               ),
               FutureBuilder<DetailMovie>(
-                  future: controller.detailMovie(movie.id),
+                  future: controller.detailMovie(movie["id"]),
                   builder: (context, snapshotCast) {
                     if (snapshotCast.connectionState ==
                         ConnectionState.waiting) {
