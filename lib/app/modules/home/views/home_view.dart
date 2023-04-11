@@ -26,35 +26,19 @@ class _HomeViewState extends State<HomeView> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        actions: [
-          IconButton(
-              onPressed: () => Get.toNamed(Routes.SEARCH_PAGE),
-              icon: Icon(
-                Icons.search,
-                color: Colors.red,
-              ))
-        ],
-        title: const Text('What do you want to watch?'),
-        backgroundColor: Colors.black,
-      ),
+          elevation: 0,
+          actions: [
+            IconButton(
+                onPressed: () => Get.toNamed(Routes.SEARCH_PAGE),
+                icon: Icon(
+                  Icons.search,
+                  color: Colors.red,
+                ))
+          ],
+          title: const Text('What do you want to watch?'),
+          backgroundColor: Colors.black),
       body: ListView(
         children: [
-          Container(
-            padding: EdgeInsets.all(10),
-            width: Get.width,
-            height: 100,
-            color: Colors.black,
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(children: [
-                ContainerCategory(),
-                ContainerCategory(),
-                ContainerCategory(),
-                ContainerCategory(),
-                ContainerCategory(),
-              ]),
-            ),
-          ),
           FutureBuilder<DiscoverModel>(
             future: controller.getDiscover(),
             builder: (context, snapshot) {
@@ -173,6 +157,47 @@ class _HomeViewState extends State<HomeView> {
             },
           ),
           const SizedBox(height: 10),
+          Container(
+            padding: EdgeInsets.all(10),
+            height: 50,
+            width: Get.width,
+            child: FutureBuilder(
+              future: controller.getGenreMovie(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                return ListView.separated(
+                  separatorBuilder: (context, index) => SizedBox(width: 10),
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  itemCount: snapshot.data!.genres.length,
+                  itemBuilder: (context, index) {
+                    return Container(
+                        width: 100,
+                        height: 100,
+                        decoration: BoxDecoration(
+                            color: Color.fromARGB(255, 41, 41, 41),
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "${snapshot.data!.genres[index].name}",
+                              style: TextStyle(
+                                  color: Color.fromARGB(255, 236, 48, 35),
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ));
+                  },
+                );
+              },
+            ),
+          ),
+          const SizedBox(height: 10),
           FutureBuilder<UpComingMovie>(
             future: controller.upComingMovie(),
             builder: (context, snapshot) {
@@ -251,7 +276,6 @@ class _HomeViewState extends State<HomeView> {
               );
             },
           ),
-          const SizedBox(height: 10),
           FutureBuilder<PopularfMovie>(
             future: controller.popularMovie(),
             builder: (context, snapshot) {

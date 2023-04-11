@@ -54,15 +54,29 @@ class _SearchPageState extends State<SearchPage> {
                     Get.toNamed(Routes.SEARCH_DETAIL, arguments: movie);
                   },
                   title: Text(
-                    movie['title'],
+                    "${movie['title']} | ${movie['release_date']}",
                     style: TextStyle(color: Colors.white),
                   ),
-                  subtitle: Text(movie['overview'],
-                      style: TextStyle(color: Colors.white)),
-                  leading: Image.network(
-                    'https://image.tmdb.org/t/p/w92${movie['poster_path']}',
-                    errorBuilder: (context, error, stackTrace) =>
-                        Icon(Icons.error),
+                  subtitle: Row(
+                    children: [
+                      Text("Rating :", style: TextStyle(color: Colors.white)),
+                      Icon(
+                        Icons.star_rate_rounded,
+                        color: Color.fromARGB(255, 253, 228, 0),
+                      ),
+                      Text("${movie['vote_average']}",
+                          style: TextStyle(color: Colors.white)),
+                    ],
+                  ),
+                  leading: Container(
+                    width: 50,
+                    height: 50,
+                    child: Image.network(
+                      'https://image.tmdb.org/t/p/w92${movie['poster_path']}',
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) =>
+                          Icon(Icons.error),
+                    ),
                   ),
                 );
               },

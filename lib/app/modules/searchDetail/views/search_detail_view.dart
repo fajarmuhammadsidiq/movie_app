@@ -200,7 +200,6 @@ class SearchDetailView extends GetView<SearchDetailController> {
                     return Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Container(
-                        height: 400,
                         width: Get.width,
                         color: Colors.black,
                         child: Column(
@@ -254,65 +253,125 @@ class SearchDetailView extends GetView<SearchDetailController> {
                                 textAlign: TextAlign.justify,
                                 "${snapshotCast.data!.overview}"),
                             SizedBox(height: 10),
-                            Container(
-                              width: Get.width,
-                              height: 50,
-                              color: Colors.green,
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: Container(
-                                      alignment: Alignment.center,
-                                      width: Get.width,
-                                      height: Get.height,
-                                      color: Colors.yellow,
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text("Budget Production",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.black,
-                                              )),
-                                          SizedBox(height: 5),
-                                          Text(
-                                              "${currencyFormatter.format(snapshotCast.data!.budget)}",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.black,
-                                              )),
-                                        ],
+                            Text(
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
+                                textAlign: TextAlign.justify,
+                                "${snapshotCast.data!.overview}"),
+                            SizedBox(height: 10),
+                            Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Container(
+                                width: Get.width,
+                                height: 150,
+                                color: Colors.green,
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        width: Get.width,
+                                        height: Get.height,
+                                        color: Colors.black,
+                                        child: Column(
+                                          children: [
+                                            Icon(
+                                              Icons.slideshow_outlined,
+                                              color: Colors.white,
+                                              size: 50,
+                                            ),
+                                            SizedBox(height: 10),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                  width: Get.width,
+                                                  padding: EdgeInsets.all(10),
+                                                  color: Colors.grey,
+                                                  child:
+                                                      Text("Budget Production",
+                                                          style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color: Colors.black,
+                                                          )),
+                                                ),
+                                                SizedBox(height: 5),
+                                                Container(
+                                                  width: Get.width,
+                                                  padding: EdgeInsets.all(10),
+                                                  color: Colors.grey,
+                                                  child: Text(
+                                                      "${currencyFormatter.format(snapshotCast.data!.budget)}",
+                                                      style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Colors.red,
+                                                      )),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  Expanded(
-                                    child: Container(
-                                      alignment: Alignment.center,
-                                      width: Get.width,
-                                      height: Get.height,
-                                      color: Colors.green,
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text("Revenue",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.black,
-                                              )),
-                                          SizedBox(height: 5),
-                                          Text(
-                                              "${currencyFormatter.format(snapshotCast.data!.revenue)}",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.black,
-                                              )),
-                                        ],
+                                    Expanded(
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        width: Get.width,
+                                        height: Get.height,
+                                        color: Colors.black,
+                                        child: Column(
+                                          children: [
+                                            Icon(
+                                              Icons.monetization_on,
+                                              color: Colors.white,
+                                              size: 50,
+                                            ),
+                                            SizedBox(height: 10),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                  width: Get.width,
+                                                  padding: EdgeInsets.all(10),
+                                                  color: Colors.grey,
+                                                  child: Text("Revenue",
+                                                      style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Colors.black,
+                                                      )),
+                                                ),
+                                                SizedBox(height: 5),
+                                                Container(
+                                                  width: Get.width,
+                                                  padding: EdgeInsets.all(10),
+                                                  color: Color.fromARGB(
+                                                      255, 71, 70, 70),
+                                                  child: Text(
+                                                      "${currencyFormatter.format(snapshotCast.data!.revenue)}",
+                                                      style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Colors.green,
+                                                      )),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           ],
