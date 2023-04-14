@@ -9,47 +9,8 @@ import '../../../data/movie.dart';
 import '../../../data/popularMovie.dart';
 import '../controllers/see_all_now_playing_controller.dart';
 
-class SeeAllNowPlayingView extends StatefulWidget {
+class SeeAllNowPlayingView extends GetView<SeeAllNowPlayingController> {
   const SeeAllNowPlayingView({Key? key}) : super(key: key);
-
-  @override
-  State<SeeAllNowPlayingView> createState() => _SeeAllNowPlayingViewState();
-}
-
-class _SeeAllNowPlayingViewState extends State<SeeAllNowPlayingView> {
-  final controller = Get.find<SeeAllNowPlayingController>();
-
-  final PagingController<int, Movie> _pagingController =
-      PagingController(firstPageKey: 1);
-
-  @override
-  void initState() {
-    super.initState();
-    _pagingController.addPageRequestListener((pageKey) {
-      _fetchPage(pageKey);
-    });
-  }
-
-  Future<void> _fetchPage(int pageKey) async {
-    try {
-      final newItems = await controller.fetchMovies(pageKey);
-      final isLastPage = newItems.isEmpty;
-      if (isLastPage) {
-        _pagingController.appendLastPage(newItems);
-      } else {
-        final nextPageKey = pageKey + 1;
-        _pagingController.appendPage(newItems, nextPageKey);
-      }
-    } catch (error) {
-      _pagingController.error = error;
-    }
-  }
-
-  @override
-  void dispose() {
-    _pagingController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +20,7 @@ class _SeeAllNowPlayingViewState extends State<SeeAllNowPlayingView> {
         ),
         body: PagedListView.separated(
           separatorBuilder: (context, index) => SizedBox(height: 10),
-          pagingController: _pagingController,
+          pagingController: controller.pagingController,
           builderDelegate: PagedChildBuilderDelegate<Movie>(
             itemBuilder: (context, item, index) => Card(
               child: ListTile(
