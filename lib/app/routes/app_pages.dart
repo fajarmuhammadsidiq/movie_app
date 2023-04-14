@@ -7,6 +7,8 @@ import '../modules/home/views/home_view.dart';
 import '../modules/searchDetail/bindings/search_detail_binding.dart';
 import '../modules/searchDetail/views/search_detail_view.dart';
 import '../modules/searchPage/views/search_page_view.dart';
+import '../modules/seeAllNowPlaying/bindings/see_all_now_playing_binding.dart';
+import '../modules/seeAllNowPlaying/views/see_all_now_playing_view.dart';
 
 part 'app_routes.dart';
 
@@ -34,6 +36,11 @@ class AppPages {
       name: _Paths.SEARCH_DETAIL,
       page: () => const SearchDetailView(),
       binding: SearchDetailBinding(),
+    ),
+    GetPage(
+      name: _Paths.SEE_ALL_NOW_PLAYING,
+      page: () => const SeeAllNowPlayingView(),
+      binding: SeeAllNowPlayingBinding(),
     ),
   ];
 }

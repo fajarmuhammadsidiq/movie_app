@@ -11,11 +11,12 @@ dependencies:
   flutter:
     sdk: flutter
   http: ^0.13.5
-  carousel_slider: ^4.2.1
+  carousel_slider: 4.2.1
   persistent_bottom_nav_bar: ^5.0.2
   youtube_player_flutter: ^8.1.2
   cached_network_image: ^3.2.3
   intl: ^0.18.0
+  infinite_scroll_pagination: ^3.2.0
 
 dev_dependencies:
   flutter_lints: ^2.0.0

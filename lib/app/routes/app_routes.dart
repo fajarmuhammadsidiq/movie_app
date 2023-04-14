@@ -7,6 +7,7 @@ abstract class Routes {
   static const DETAIL_BANNER_NOW_PLAYING = _Paths.DETAIL_BANNER_NOW_PLAYING;
   static const SEARCH_PAGE = _Paths.SEARCH_PAGE;
   static const SEARCH_DETAIL = _Paths.SEARCH_DETAIL;
+  static const SEE_ALL_NOW_PLAYING = _Paths.SEE_ALL_NOW_PLAYING;
 }
 
 abstract class _Paths {
@@ -15,4 +16,5 @@ abstract class _Paths {
   static const DETAIL_BANNER_NOW_PLAYING = '/detail-banner-now-playing';
   static const SEARCH_PAGE = '/search-page';
   static const SEARCH_DETAIL = '/search-detail';
+  static const SEE_ALL_NOW_PLAYING = '/see-all-now-playing';
 }

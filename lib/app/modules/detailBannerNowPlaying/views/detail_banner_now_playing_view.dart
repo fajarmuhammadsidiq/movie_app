@@ -5,8 +5,7 @@ import 'package:movie_app/app/data/const.dart';
 import 'package:movie_app/app/data/detail_model.dart';
 import 'package:movie_app/app/modules/detailBannerNowPlaying/views/youtube_widget.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
-import '../../../data/cast_model.dart';
-import '../../../data/discover_model.dart';
+import '../../../data/noplaying_model.dart';
 import '../../../data/image_const.dart';
 import '../controllers/detail_banner_now_playing_controller.dart';
 
