@@ -4,20 +4,20 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-import '../../../data/const.dart';
 import '../../../data/detail_model.dart';
 import '../../../data/image_const.dart';
-import '../../../data/search_mode.dart';
+import '../../../data/movie.dart';
 import '../../detailBannerNowPlaying/views/youtube_widget.dart';
-import '../controllers/search_detail_controller.dart';
+import '../controllers/detail_now_playing_pagination_controller.dart';
 
-class SearchDetailView extends GetView<SearchDetailController> {
-  const SearchDetailView({Key? key}) : super(key: key);
+class DetailNowPlayingPaginationView
+    extends GetView<DetailNowPlayingPaginationController> {
+  const DetailNowPlayingPaginationView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    Map<String, dynamic> movie = Get.arguments;
-
+    Movie data = Get.arguments;
     final currencyFormatter = NumberFormat.currency(locale: 'en_US');
+
     return Scaffold(
         backgroundColor: Colors.black,
         body: SingleChildScrollView(
@@ -39,7 +39,7 @@ class SearchDetailView extends GetView<SearchDetailController> {
                       height: 300,
                       width: Get.width,
                       child: Image.network(
-                        "https://image.tmdb.org/t/p/w92${movie['backdrop_path']}",
+                        "https://image.tmdb.org/t/p/w92${data.backdropPath}",
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -56,7 +56,7 @@ class SearchDetailView extends GetView<SearchDetailController> {
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20)),
                               child: Image.network(
-                                "https://image.tmdb.org/t/p/w92${movie['poster_path']}",
+                                "https://image.tmdb.org/t/p/w92${data.posterPath}",
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -73,14 +73,14 @@ class SearchDetailView extends GetView<SearchDetailController> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "${movie["title"]}",
+                                "${data.title}",
                                 style: const TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white),
                               ),
                               Text(
-                                "Rating : ${movie["voteAverage"]}",
+                                "Rating : ${data.voteAverage}",
                                 style: const TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
@@ -101,14 +101,14 @@ class SearchDetailView extends GetView<SearchDetailController> {
                 height: 180,
                 width: Get.width,
                 child: FutureBuilder(
-                    future: controller.trailerMovie(movie["id"].toString()),
+                    future: controller.trailerMovie(data.id.toString()),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Center(
                           child: CircularProgressIndicator(),
                         );
                       }
-                      final trailer = snapshot.data!.results;
+
                       return ListView.separated(
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) {
@@ -167,7 +167,7 @@ class SearchDetailView extends GetView<SearchDetailController> {
                     }),
               ),
               FutureBuilder<DetailMovie>(
-                  future: controller.detailMovie(movie["id"]),
+                  future: controller.detailMovie(data.id),
                   builder: (context, snapshotCast) {
                     if (snapshotCast.connectionState ==
                         ConnectionState.waiting) {

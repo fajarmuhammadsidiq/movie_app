@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 import '../../../data/movie.dart';
-import '../../../data/noplaying_model.dart';
 import 'package:http/http.dart' as http;
 
 class SeeAllNowPlayingController extends GetxController {
@@ -53,9 +52,11 @@ class SeeAllNowPlayingController extends GetxController {
         '$baseUrl/movie/now_playing?api_key=$apiKey&language=en-US&page=$page');
     final response = await http.get(url);
     if (response.statusCode == 200) {
-      final jsonResponse = json.decode(response.body);
-      final List<dynamic> results = jsonResponse['results'];
-      return results.map((movieJson) => Movie.fromJson(movieJson)).toList();
+      List jsonResponse =
+          (json.decode(response.body) as Map<String, dynamic>)["results"];
+      return jsonResponse
+          .map((movieJson) => Movie.fromJson(movieJson))
+          .toList();
     } else {
       throw Exception('Failed to load movies');
     }

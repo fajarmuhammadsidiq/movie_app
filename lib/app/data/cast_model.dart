@@ -10,25 +10,25 @@ class CasrMovie {
     if (json['cast'] != null) {
       cast = <Cast>[];
       json['cast'].forEach((v) {
-        cast!.add(new Cast.fromJson(v));
+        cast!.add(Cast.fromJson(v));
       });
     }
     if (json['crew'] != null) {
       crew = <Crew>[];
       json['crew'].forEach((v) {
-        crew!.add(new Crew.fromJson(v));
+        crew!.add(Crew.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    if (this.cast != null) {
-      data['cast'] = this.cast!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['id'] = id;
+    if (cast != null) {
+      data['cast'] = cast!.map((v) => v.toJson()).toList();
     }
-    if (this.crew != null) {
-      data['crew'] = this.crew!.map((v) => v.toJson()).toList();
+    if (crew != null) {
+      data['crew'] = crew!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -78,19 +78,19 @@ class Cast {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['adult'] = this.adult;
-    data['gender'] = this.gender;
-    data['id'] = this.id;
-    data['known_for_department'] = this.knownForDepartment;
-    data['name'] = this.name;
-    data['original_name'] = this.originalName;
-    data['popularity'] = this.popularity;
-    data['profile_path'] = this.profilePath;
-    data['cast_id'] = this.castId;
-    data['character'] = this.character;
-    data['credit_id'] = this.creditId;
-    data['order'] = this.order;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['adult'] = adult;
+    data['gender'] = gender;
+    data['id'] = id;
+    data['known_for_department'] = knownForDepartment;
+    data['name'] = name;
+    data['original_name'] = originalName;
+    data['popularity'] = popularity;
+    data['profile_path'] = profilePath;
+    data['cast_id'] = castId;
+    data['character'] = character;
+    data['credit_id'] = creditId;
+    data['order'] = order;
     return data;
   }
 }
@@ -136,18 +136,18 @@ class Crew {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['adult'] = this.adult;
-    data['gender'] = this.gender;
-    data['id'] = this.id;
-    data['known_for_department'] = this.knownForDepartment;
-    data['name'] = this.name;
-    data['original_name'] = this.originalName;
-    data['popularity'] = this.popularity;
-    data['profile_path'] = this.profilePath;
-    data['credit_id'] = this.creditId;
-    data['department'] = this.department;
-    data['job'] = this.job;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['adult'] = adult;
+    data['gender'] = gender;
+    data['id'] = id;
+    data['known_for_department'] = knownForDepartment;
+    data['name'] = name;
+    data['original_name'] = originalName;
+    data['popularity'] = popularity;
+    data['profile_path'] = profilePath;
+    data['credit_id'] = creditId;
+    data['department'] = department;
+    data['job'] = job;
     return data;
   }
 }

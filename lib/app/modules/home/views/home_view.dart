@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:movie_app/app/data/const.dart';
-import 'package:movie_app/app/modules/searchPage/views/search_page_view.dart';
+
 import 'package:movie_app/app/routes/app_pages.dart';
 
 import '../../../data/noplaying_model.dart';
@@ -30,7 +30,7 @@ class _HomeViewState extends State<HomeView> {
           actions: [
             IconButton(
                 onPressed: () => Get.toNamed(Routes.SEARCH_PAGE),
-                icon: Icon(
+                icon: const Icon(
                   Icons.search,
                   color: Colors.red,
                 ))
@@ -171,7 +171,7 @@ class _HomeViewState extends State<HomeView> {
           ),
           const SizedBox(height: 10),
           Container(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             height: 50,
             width: Get.width,
             child: FutureBuilder(
@@ -183,7 +183,8 @@ class _HomeViewState extends State<HomeView> {
                   );
                 }
                 return ListView.separated(
-                  separatorBuilder: (context, index) => SizedBox(width: 10),
+                  separatorBuilder: (context, index) =>
+                      const SizedBox(width: 10),
                   shrinkWrap: true,
                   scrollDirection: Axis.horizontal,
                   itemCount: snapshot.data!.genres.length,
@@ -192,14 +193,14 @@ class _HomeViewState extends State<HomeView> {
                         width: 100,
                         height: 100,
                         decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 41, 41, 41),
+                            color: const Color.fromARGB(255, 41, 41, 41),
                             borderRadius: BorderRadius.circular(10)),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              "${snapshot.data!.genres[index].name}",
-                              style: TextStyle(
+                              snapshot.data!.genres[index].name,
+                              style: const TextStyle(
                                   color: Color.fromARGB(255, 236, 48, 35),
                                   fontWeight: FontWeight.bold),
                             ),
@@ -270,13 +271,14 @@ class _HomeViewState extends State<HomeView> {
                                       color: Colors.red,
                                       borderRadius: BorderRadius.circular(10)),
                                 ),
-                                SizedBox(height: 10),
+                                const SizedBox(height: 10),
                                 Expanded(
                                   child: Container(
                                     width: 150,
                                     child: Text(
-                                      "${dataUp.title}",
-                                      style: TextStyle(color: Colors.white),
+                                      dataUp.title,
+                                      style:
+                                          const TextStyle(color: Colors.white),
                                     ),
                                   ),
                                 ),
@@ -288,7 +290,6 @@ class _HomeViewState extends State<HomeView> {
                   FutureBuilder<PopularfMovie>(
                     future: controller.popularMovie(),
                     builder: (context, snapshot) {
-                      print(snapshot);
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Center(
                           child: CircularProgressIndicator(),
@@ -352,7 +353,7 @@ class _HomeViewState extends State<HomeView> {
                                             width: 150,
                                             child: Text(
                                               "${dataUp?.title}",
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   color: Colors.white),
                                             ),
                                           ),
@@ -384,7 +385,7 @@ class ContainerCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(right: 5),
+      margin: const EdgeInsets.only(right: 5),
       width: 100,
       height: 50,
       color: Colors.red,

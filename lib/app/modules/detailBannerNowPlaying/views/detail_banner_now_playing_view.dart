@@ -72,14 +72,14 @@ class DetailBannerNowPlayingView
                             children: [
                               Text(
                                 "${movie?.title}",
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white),
                               ),
                               Text(
                                 "Rating : ${movie?.voteAverage}",
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white),
@@ -87,7 +87,7 @@ class DetailBannerNowPlayingView
                             ],
                           ),
                         )),
-                    Positioned(
+                    const Positioned(
                         top: 50,
                         child: BackButton(
                           color: Colors.white,
@@ -106,7 +106,7 @@ class DetailBannerNowPlayingView
                           child: CircularProgressIndicator(),
                         );
                       }
-                      final trailer = snapshot.data!.results;
+
                       return ListView.separated(
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) {
@@ -159,7 +159,7 @@ class DetailBannerNowPlayingView
                             );
                           },
                           separatorBuilder: (context, index) {
-                            return SizedBox(width: 5);
+                            return const SizedBox(width: 5);
                           },
                           itemCount: snapshot.data!.results.length);
                     }),
@@ -174,7 +174,7 @@ class DetailBannerNowPlayingView
                       );
                     }
                     if (!snapshotCast.hasData) {
-                      return Text(
+                      return const Text(
                         "Tidak ada data",
                         style: TextStyle(color: Colors.white),
                       );
@@ -185,11 +185,11 @@ class DetailBannerNowPlayingView
                               height: 50,
                               width: 100,
                               decoration: BoxDecoration(
-                                  color: Color.fromARGB(255, 216, 20, 6),
+                                  color: const Color.fromARGB(255, 216, 20, 6),
                                   borderRadius: BorderRadius.circular(20)),
                               child: Text(
                                 "${e.name}",
-                                style: TextStyle(
+                                style: const TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold),
                               ),
@@ -201,39 +201,40 @@ class DetailBannerNowPlayingView
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("RELEASE DATE:",
+                          const Text("RELEASE DATE:",
                               style: TextStyle(
                                   fontSize: 20,
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                   fontStyle: FontStyle.italic)),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                           Row(
                             children: [
-                              Icon(Icons.calendar_month, color: Colors.white),
-                              SizedBox(width: 20),
+                              const Icon(Icons.calendar_month,
+                                  color: Colors.white),
+                              const SizedBox(width: 20),
                               Text(
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold),
                                   "${snapshotCast.data!.releaseDate}"),
                             ],
                           ),
-                          SizedBox(height: 10),
-                          Text("GENRES",
+                          const SizedBox(height: 10),
+                          const Text("GENRES",
                               style: TextStyle(
                                   fontSize: 20,
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                   fontStyle: FontStyle.italic)),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                           Wrap(
                             spacing: 10,
                             runSpacing: 10,
                             children: genre,
                           ),
-                          SizedBox(height: 10),
-                          Text(
+                          const SizedBox(height: 10),
+                          const Text(
                             "OVERVIEWS",
                             style: TextStyle(
                                 fontSize: 20,
@@ -241,14 +242,14 @@ class DetailBannerNowPlayingView
                                 fontWeight: FontWeight.bold,
                                 fontStyle: FontStyle.italic),
                           ),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                           Text(
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Colors.white,
                               ),
                               textAlign: TextAlign.justify,
                               "${snapshotCast.data!.overview}"),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                           Padding(
                             padding: const EdgeInsets.all(10.0),
                             child: Container(
@@ -265,12 +266,12 @@ class DetailBannerNowPlayingView
                                       color: Colors.black,
                                       child: Column(
                                         children: [
-                                          Icon(
+                                          const Icon(
                                             Icons.slideshow_outlined,
                                             color: Colors.white,
                                             size: 50,
                                           ),
-                                          SizedBox(height: 10),
+                                          const SizedBox(height: 10),
                                           Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
@@ -279,23 +280,28 @@ class DetailBannerNowPlayingView
                                             children: [
                                               Container(
                                                 width: Get.width,
-                                                padding: EdgeInsets.all(10),
+                                                padding:
+                                                    const EdgeInsets.all(10),
                                                 color: Colors.grey,
-                                                child: Text("Budget Production",
+                                                child: const Text(
+                                                    "Budget Production",
                                                     style: TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold,
                                                       color: Colors.black,
                                                     )),
                                               ),
-                                              SizedBox(height: 5),
+                                              const SizedBox(height: 5),
                                               Container(
                                                 width: Get.width,
-                                                padding: EdgeInsets.all(10),
+                                                padding:
+                                                    const EdgeInsets.all(10),
                                                 color: Colors.grey,
                                                 child: Text(
-                                                    "${currencyFormatter.format(snapshotCast.data!.budget)}",
-                                                    style: TextStyle(
+                                                    currencyFormatter.format(
+                                                        snapshotCast
+                                                            .data!.budget),
+                                                    style: const TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold,
                                                       color: Colors.red,
@@ -315,12 +321,12 @@ class DetailBannerNowPlayingView
                                       color: Colors.black,
                                       child: Column(
                                         children: [
-                                          Icon(
+                                          const Icon(
                                             Icons.monetization_on,
                                             color: Colors.white,
                                             size: 50,
                                           ),
-                                          SizedBox(height: 10),
+                                          const SizedBox(height: 10),
                                           Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.center,
@@ -329,24 +335,28 @@ class DetailBannerNowPlayingView
                                             children: [
                                               Container(
                                                 width: Get.width,
-                                                padding: EdgeInsets.all(10),
+                                                padding:
+                                                    const EdgeInsets.all(10),
                                                 color: Colors.grey,
-                                                child: Text("Revenue",
+                                                child: const Text("Revenue",
                                                     style: TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold,
                                                       color: Colors.black,
                                                     )),
                                               ),
-                                              SizedBox(height: 5),
+                                              const SizedBox(height: 5),
                                               Container(
                                                 width: Get.width,
-                                                padding: EdgeInsets.all(10),
-                                                color: Color.fromARGB(
+                                                padding:
+                                                    const EdgeInsets.all(10),
+                                                color: const Color.fromARGB(
                                                     255, 71, 70, 70),
                                                 child: Text(
-                                                    "${currencyFormatter.format(snapshotCast.data!.revenue)}",
-                                                    style: TextStyle(
+                                                    currencyFormatter.format(
+                                                        snapshotCast
+                                                            .data!.revenue),
+                                                    style: const TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold,
                                                       color: Colors.green,
@@ -362,11 +372,7 @@ class DetailBannerNowPlayingView
                               ),
                             ),
                           ),
-                          SizedBox(height: 10),
-                          Text(
-                            "YOYOYOYOYOYOYOYOYYOYOOY",
-                            style: TextStyle(color: Colors.white),
-                          ),
+                          const SizedBox(height: 10),
                         ],
                       ),
                     );
@@ -380,10 +386,11 @@ class DetailBannerNowPlayingView
                         style: ElevatedButton.styleFrom(
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20)),
-                            backgroundColor: Color.fromARGB(255, 216, 20, 6)),
+                            backgroundColor:
+                                const Color.fromARGB(255, 216, 20, 6)),
                         onPressed: () {},
-                        icon: Icon(Icons.book),
-                        label: Text("Favorites"))),
+                        icon: const Icon(Icons.book),
+                        label: const Text("Favorites"))),
               )
             ]),
           ),

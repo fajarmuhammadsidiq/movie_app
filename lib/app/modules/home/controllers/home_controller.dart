@@ -46,7 +46,7 @@ class HomeController extends GetxController {
     var response = await http.get(Uri.parse(url));
     Map<String, dynamic> data =
         json.decode(response.body) as Map<String, dynamic>;
-    print(data);
+
     return PopularfMovie.fromJson(data);
   }
 }

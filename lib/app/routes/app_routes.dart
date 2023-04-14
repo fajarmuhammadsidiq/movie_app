@@ -8,6 +8,8 @@ abstract class Routes {
   static const SEARCH_PAGE = _Paths.SEARCH_PAGE;
   static const SEARCH_DETAIL = _Paths.SEARCH_DETAIL;
   static const SEE_ALL_NOW_PLAYING = _Paths.SEE_ALL_NOW_PLAYING;
+  static const DETAIL_NOW_PLAYING_PAGINATION =
+      _Paths.DETAIL_NOW_PLAYING_PAGINATION;
 }
 
 abstract class _Paths {
@@ -17,4 +19,5 @@ abstract class _Paths {
   static const SEARCH_PAGE = '/search-page';
   static const SEARCH_DETAIL = '/search-detail';
   static const SEE_ALL_NOW_PLAYING = '/see-all-now-playing';
+  static const DETAIL_NOW_PLAYING_PAGINATION = '/detail-now-playing-pagination';
 }

@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 
 import '../modules/detailBannerNowPlaying/bindings/detail_banner_now_playing_binding.dart';
 import '../modules/detailBannerNowPlaying/views/detail_banner_now_playing_view.dart';
+import '../modules/detailNowPlayingPagination/bindings/detail_now_playing_pagination_binding.dart';
+import '../modules/detailNowPlayingPagination/views/detail_now_playing_pagination_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/searchDetail/bindings/search_detail_binding.dart';
@@ -41,6 +43,11 @@ class AppPages {
       name: _Paths.SEE_ALL_NOW_PLAYING,
       page: () => const SeeAllNowPlayingView(),
       binding: SeeAllNowPlayingBinding(),
+    ),
+    GetPage(
+      name: _Paths.DETAIL_NOW_PLAYING_PAGINATION,
+      page: () => const DetailNowPlayingPaginationView(),
+      binding: DetailNowPlayingPaginationBinding(),
     ),
   ];
 }

@@ -33,9 +33,9 @@ class _SearchPageState extends State<SearchPage> {
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: TextField(
-          style: TextStyle(color: Colors.white),
+          style: const TextStyle(color: Colors.white),
           controller: _searchController,
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             hintText: 'Search movies',
             hintStyle: TextStyle(color: Colors.white),
             border: InputBorder.none,
@@ -55,17 +55,18 @@ class _SearchPageState extends State<SearchPage> {
                   },
                   title: Text(
                     "${movie['title']} | ${movie['release_date']}",
-                    style: TextStyle(color: Colors.white),
+                    style: const TextStyle(color: Colors.white),
                   ),
                   subtitle: Row(
                     children: [
-                      Text("Rating :", style: TextStyle(color: Colors.white)),
-                      Icon(
+                      const Text("Rating :",
+                          style: TextStyle(color: Colors.white)),
+                      const Icon(
                         Icons.star_rate_rounded,
                         color: Color.fromARGB(255, 253, 228, 0),
                       ),
                       Text("${movie['vote_average']}",
-                          style: TextStyle(color: Colors.white)),
+                          style: const TextStyle(color: Colors.white)),
                     ],
                   ),
                   leading: Container(
@@ -75,7 +76,7 @@ class _SearchPageState extends State<SearchPage> {
                       'https://image.tmdb.org/t/p/w92${movie['poster_path']}',
                       fit: BoxFit.cover,
                       errorBuilder: (context, error, stackTrace) =>
-                          Icon(Icons.error),
+                          const Icon(Icons.error),
                     ),
                   ),
                 );

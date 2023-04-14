@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class YoutubePlayerWidget extends StatefulWidget {
-  YoutubePlayerWidget({super.key, required this.youtubeKey});
+  const YoutubePlayerWidget({super.key, required this.youtubeKey});
 
   final String youtubeKey;
 
