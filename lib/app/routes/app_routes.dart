@@ -10,6 +10,9 @@ abstract class Routes {
   static const SEE_ALL_NOW_PLAYING = _Paths.SEE_ALL_NOW_PLAYING;
   static const DETAIL_NOW_PLAYING_PAGINATION =
       _Paths.DETAIL_NOW_PLAYING_PAGINATION;
+  static const EXPLORE_PAGE = _Paths.EXPLORE_PAGE;
+  static const FAVORITES_PAGE = _Paths.FAVORITES_PAGE;
+  static const SETTING_PAGE = _Paths.SETTING_PAGE;
 }
 
 abstract class _Paths {
@@ -20,4 +23,7 @@ abstract class _Paths {
   static const SEARCH_DETAIL = '/search-detail';
   static const SEE_ALL_NOW_PLAYING = '/see-all-now-playing';
   static const DETAIL_NOW_PLAYING_PAGINATION = '/detail-now-playing-pagination';
+  static const EXPLORE_PAGE = '/explore-page';
+  static const FAVORITES_PAGE = '/favorites-page';
+  static const SETTING_PAGE = '/setting-page';
 }

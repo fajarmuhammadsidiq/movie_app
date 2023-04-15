@@ -1,9 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
+import 'package:movie_app/app/controllers/page_controller_controller.dart';
 import 'package:movie_app/app/data/const.dart';
-
+import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
 import 'package:movie_app/app/routes/app_pages.dart';
 
 import '../../../data/noplaying_model.dart';
@@ -20,10 +20,12 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  final PageController1 = Get.find<PageIndexController>();
   final controller = Get.find<HomeController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
       backgroundColor: Colors.black,
       appBar: AppBar(
           elevation: 0,
@@ -103,7 +105,7 @@ class _HomeViewState extends State<HomeView> {
                           return Stack(children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(20),
-                              child: InkWell(
+                              child: GestureDetector(
                                 onTap: () {
                                   Get.toNamed(Routes.DETAIL_BANNER_NOW_PLAYING,
                                       arguments: movie);
@@ -121,17 +123,17 @@ class _HomeViewState extends State<HomeView> {
                                   height: 300,
                                   width: Get.width,
                                   decoration: BoxDecoration(
-                                      color: Colors.amber,
+                                      image: DecorationImage(
+                                          image: NetworkImage(
+                                              "${Url.imageLw500}${movie?.backdropPath}"),
+                                          fit: BoxFit.cover),
                                       borderRadius: BorderRadius.circular(20)),
-                                  child: Image.network(
-                                      fit: BoxFit.cover,
-                                      "${Url.imageLw500}${movie?.backdropPath}"),
                                 ),
                               ),
                             ),
                             Positioned(
                               left: 16,
-                              bottom: 60,
+                              bottom: 70,
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(20),
                                 child: Image.network(
@@ -172,7 +174,7 @@ class _HomeViewState extends State<HomeView> {
           const SizedBox(height: 10),
           Container(
             padding: const EdgeInsets.all(10),
-            height: 50,
+            height: 80,
             width: Get.width,
             child: FutureBuilder(
               future: controller.getGenreMovie(),
@@ -189,29 +191,31 @@ class _HomeViewState extends State<HomeView> {
                   scrollDirection: Axis.horizontal,
                   itemCount: snapshot.data!.genres.length,
                   itemBuilder: (context, index) {
-                    return Container(
-                        width: 100,
-                        height: 100,
-                        decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 41, 41, 41),
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
+                    return Material(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Color.fromARGB(255, 37, 37, 37),
+                      child: InkWell(
+                        splashColor: Colors.white,
+                        borderRadius: BorderRadius.circular(20),
+                        onTap: () {},
+                        child: Container(
+                            width: 150,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Text(
                               snapshot.data!.genres[index].name,
                               style: const TextStyle(
                                   color: Color.fromARGB(255, 236, 48, 35),
                                   fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        ));
+                            )),
+                      ),
+                    );
                   },
                 );
               },
             ),
           ),
-          const SizedBox(height: 10),
           FutureBuilder<UpComingMovie>(
             future: controller.upComingMovie(),
             builder: (context, snapshot) {
@@ -371,6 +375,21 @@ class _HomeViewState extends State<HomeView> {
               );
             },
           ),
+        ],
+      ),
+      bottomNavigationBar: FloatingNavbar(
+        selectedItemColor: Colors.white,
+        selectedBackgroundColor: Colors.red,
+        backgroundColor: Color.fromARGB(255, 48, 47, 47),
+        onTap: (int i) {
+          PageController1.changeIndexPage(i);
+        },
+        currentIndex: PageController1.pageIndex.value,
+        items: [
+          FloatingNavbarItem(icon: Icons.home, title: 'Home'),
+          FloatingNavbarItem(icon: Icons.explore, title: 'Explore'),
+          FloatingNavbarItem(icon: Icons.favorite_border, title: 'Favorite'),
+          FloatingNavbarItem(icon: Icons.settings, title: 'Settings'),
         ],
       ),
     );
