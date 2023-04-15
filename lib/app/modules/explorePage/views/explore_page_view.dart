@@ -14,15 +14,15 @@ class ExplorePageView extends GetView<ExplorePageController> {
   Widget build(BuildContext context) {
     final PageController1 = Get.find<PageIndexController>();
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.white,
       extendBody: true,
       appBar: AppBar(
         elevation: 0,
         title: const Text(
           'Explore',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.black),
         ),
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.white,
         centerTitle: true,
       ),
       body: Padding(
