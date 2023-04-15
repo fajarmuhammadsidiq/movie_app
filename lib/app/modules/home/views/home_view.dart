@@ -46,7 +46,10 @@ class _HomeViewState extends State<HomeView> {
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(
-                  child: CircularProgressIndicator(),
+                  child: LinearProgressIndicator(
+                    backgroundColor: Colors.red,
+                    color: Colors.grey,
+                  ),
                 );
               }
               if (!snapshot.hasData) {
@@ -171,57 +174,15 @@ class _HomeViewState extends State<HomeView> {
               }
             },
           ),
-          const SizedBox(height: 10),
-          Container(
-            padding: const EdgeInsets.all(10),
-            height: 80,
-            width: Get.width,
-            child: FutureBuilder(
-              future: controller.getGenreMovie(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-                return ListView.separated(
-                  separatorBuilder: (context, index) =>
-                      const SizedBox(width: 10),
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: snapshot.data!.genres.length,
-                  itemBuilder: (context, index) {
-                    return Material(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Color.fromARGB(255, 37, 37, 37),
-                      child: InkWell(
-                        splashColor: Colors.white,
-                        borderRadius: BorderRadius.circular(20),
-                        onTap: () {},
-                        child: Container(
-                            width: 150,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10)),
-                            child: Text(
-                              snapshot.data!.genres[index].name,
-                              style: const TextStyle(
-                                  color: Color.fromARGB(255, 236, 48, 35),
-                                  fontWeight: FontWeight.bold),
-                            )),
-                      ),
-                    );
-                  },
-                );
-              },
-            ),
-          ),
           FutureBuilder<UpComingMovie>(
             future: controller.upComingMovie(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(
-                  child: CircularProgressIndicator(),
+                  child: LinearProgressIndicator(
+                    backgroundColor: Colors.red,
+                    color: Colors.grey,
+                  ),
                 );
               }
               return Column(
@@ -296,7 +257,10 @@ class _HomeViewState extends State<HomeView> {
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Center(
-                          child: CircularProgressIndicator(),
+                          child: LinearProgressIndicator(
+                            backgroundColor: Colors.red,
+                            color: Colors.grey,
+                          ),
                         );
                       }
                       return Column(
@@ -392,22 +356,6 @@ class _HomeViewState extends State<HomeView> {
           FloatingNavbarItem(icon: Icons.settings, title: 'Settings'),
         ],
       ),
-    );
-  }
-}
-
-class ContainerCategory extends StatelessWidget {
-  const ContainerCategory({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(right: 5),
-      width: 100,
-      height: 50,
-      color: Colors.red,
     );
   }
 }

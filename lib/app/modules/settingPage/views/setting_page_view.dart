@@ -17,11 +17,11 @@ class SettingPageView extends GetView<SettingPageController> {
         centerTitle: true,
       ),
       body: Center(
-        child: Text(
-          'SettingPageView is working',
-          style: TextStyle(fontSize: 20),
-        ),
-      ),
+          child: ElevatedButton(
+              onPressed: () {
+                controller.fetchPerson(2);
+              },
+              child: Text("tester"))),
       bottomNavigationBar: FloatingNavbar(
         selectedItemColor: Colors.white,
         selectedBackgroundColor: Colors.red,

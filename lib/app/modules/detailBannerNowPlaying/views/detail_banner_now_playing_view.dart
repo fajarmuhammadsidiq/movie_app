@@ -103,7 +103,10 @@ class DetailBannerNowPlayingView
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Center(
-                          child: CircularProgressIndicator(),
+                          child: LinearProgressIndicator(
+                            backgroundColor: Colors.red,
+                            color: Colors.white,
+                          ),
                         );
                       }
 
@@ -170,7 +173,10 @@ class DetailBannerNowPlayingView
                     if (snapshotCast.connectionState ==
                         ConnectionState.waiting) {
                       return const Center(
-                        child: CircularProgressIndicator(),
+                        child: LinearProgressIndicator(
+                          backgroundColor: Colors.red,
+                          color: Colors.white,
+                        ),
                       );
                     }
                     if (!snapshotCast.hasData) {
@@ -199,186 +205,185 @@ class DetailBannerNowPlayingView
                       width: Get.width,
                       color: Colors.black,
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text("RELEASE DATE:",
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text("RELEASE DATE:",
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontStyle: FontStyle.italic)),
+                            const SizedBox(height: 10),
+                            Row(
+                              children: [
+                                const Icon(Icons.calendar_month,
+                                    color: Colors.white),
+                                const SizedBox(width: 20),
+                                Text(
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                    "${snapshotCast.data!.releaseDate}"),
+                              ],
+                            ),
+                            const SizedBox(height: 10),
+                            const Text("GENRES",
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontStyle: FontStyle.italic)),
+                            const SizedBox(height: 10),
+                            Wrap(
+                              spacing: 10,
+                              runSpacing: 10,
+                              children: genre,
+                            ),
+                            const SizedBox(height: 10),
+                            const Text(
+                              "OVERVIEWS",
                               style: TextStyle(
                                   fontSize: 20,
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
-                                  fontStyle: FontStyle.italic)),
-                          const SizedBox(height: 10),
-                          Row(
-                            children: [
-                              const Icon(Icons.calendar_month,
-                                  color: Colors.white),
-                              const SizedBox(width: 20),
-                              Text(
-                                  style: const TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold),
-                                  "${snapshotCast.data!.releaseDate}"),
-                            ],
-                          ),
-                          const SizedBox(height: 10),
-                          const Text("GENRES",
-                              style: TextStyle(
-                                  fontSize: 20,
+                                  fontStyle: FontStyle.italic),
+                            ),
+                            const SizedBox(height: 10),
+                            Text(
+                                style: const TextStyle(
                                   color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontStyle: FontStyle.italic)),
-                          const SizedBox(height: 10),
-                          Wrap(
-                            spacing: 10,
-                            runSpacing: 10,
-                            children: genre,
-                          ),
-                          const SizedBox(height: 10),
-                          const Text(
-                            "OVERVIEWS",
-                            style: TextStyle(
-                                fontSize: 20,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontStyle: FontStyle.italic),
-                          ),
-                          const SizedBox(height: 10),
-                          Text(
-                              style: const TextStyle(
-                                color: Colors.white,
-                              ),
-                              textAlign: TextAlign.justify,
-                              "${snapshotCast.data!.overview}"),
-                          const SizedBox(height: 10),
-                          Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Container(
-                              width: Get.width,
-                              height: 150,
-                              color: Colors.green,
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: Container(
-                                      alignment: Alignment.center,
-                                      width: Get.width,
-                                      height: Get.height,
-                                      color: Colors.black,
-                                      child: Column(
-                                        children: [
-                                          const Icon(
-                                            Icons.slideshow_outlined,
-                                            color: Colors.white,
-                                            size: 50,
-                                          ),
-                                          const SizedBox(height: 10),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Container(
-                                                width: Get.width,
-                                                padding:
-                                                    const EdgeInsets.all(10),
-                                                color: Colors.grey,
-                                                child: const Text(
-                                                    "Budget Production",
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Colors.black,
-                                                    )),
-                                              ),
-                                              const SizedBox(height: 5),
-                                              Container(
-                                                width: Get.width,
-                                                padding:
-                                                    const EdgeInsets.all(10),
-                                                color: Colors.grey,
-                                                child: Text(
-                                                    currencyFormatter.format(
-                                                        snapshotCast
-                                                            .data!.budget),
-                                                    style: const TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Colors.red,
-                                                    )),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
+                                ),
+                                textAlign: TextAlign.justify,
+                                "${snapshotCast.data!.overview}"),
+                            const SizedBox(height: 10),
+                            Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Container(
+                                width: Get.width,
+                                height: 150,
+                                color: Colors.green,
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        width: Get.width,
+                                        height: Get.height,
+                                        color: Colors.black,
+                                        child: Column(
+                                          children: [
+                                            const Icon(
+                                              Icons.slideshow_outlined,
+                                              color: Colors.white,
+                                              size: 50,
+                                            ),
+                                            const SizedBox(height: 10),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                  width: Get.width,
+                                                  padding:
+                                                      const EdgeInsets.all(10),
+                                                  color: Colors.grey,
+                                                  child: const Text(
+                                                      "Budget Production",
+                                                      style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Colors.black,
+                                                      )),
+                                                ),
+                                                const SizedBox(height: 5),
+                                                Container(
+                                                  width: Get.width,
+                                                  padding:
+                                                      const EdgeInsets.all(10),
+                                                  color: Colors.grey,
+                                                  child: Text(
+                                                      currencyFormatter.format(
+                                                          snapshotCast
+                                                              .data!.budget),
+                                                      style: const TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Colors.red,
+                                                      )),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  Expanded(
-                                    child: Container(
-                                      alignment: Alignment.center,
-                                      width: Get.width,
-                                      height: Get.height,
-                                      color: Colors.black,
-                                      child: Column(
-                                        children: [
-                                          const Icon(
-                                            Icons.monetization_on,
-                                            color: Colors.white,
-                                            size: 50,
-                                          ),
-                                          const SizedBox(height: 10),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Container(
-                                                width: Get.width,
-                                                padding:
-                                                    const EdgeInsets.all(10),
-                                                color: Colors.grey,
-                                                child: const Text("Revenue",
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Colors.black,
-                                                    )),
-                                              ),
-                                              const SizedBox(height: 5),
-                                              Container(
-                                                width: Get.width,
-                                                padding:
-                                                    const EdgeInsets.all(10),
-                                                color: const Color.fromARGB(
-                                                    255, 71, 70, 70),
-                                                child: Text(
-                                                    currencyFormatter.format(
-                                                        snapshotCast
-                                                            .data!.revenue),
-                                                    style: const TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Colors.green,
-                                                    )),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
+                                    Expanded(
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        width: Get.width,
+                                        height: Get.height,
+                                        color: Colors.black,
+                                        child: Column(
+                                          children: [
+                                            const Icon(
+                                              Icons.monetization_on,
+                                              color: Colors.white,
+                                              size: 50,
+                                            ),
+                                            const SizedBox(height: 10),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                  width: Get.width,
+                                                  padding:
+                                                      const EdgeInsets.all(10),
+                                                  color: Colors.grey,
+                                                  child: const Text("Revenue",
+                                                      style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Colors.black,
+                                                      )),
+                                                ),
+                                                const SizedBox(height: 5),
+                                                Container(
+                                                  width: Get.width,
+                                                  padding:
+                                                      const EdgeInsets.all(10),
+                                                  color: const Color.fromARGB(
+                                                      255, 71, 70, 70),
+                                                  child: Text(
+                                                      currencyFormatter.format(
+                                                          snapshotCast
+                                                              .data!.revenue),
+                                                      style: const TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Colors.green,
+                                                      )),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                          const SizedBox(height: 10),
-                        ],
-                      ),
+                          ]),
                     );
                   }),
               Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding:
+                    const EdgeInsets.only(left: 20.0, bottom: 10, right: 20),
                 child: SizedBox(
                     height: 50,
                     width: Get.width,

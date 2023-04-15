@@ -27,6 +27,7 @@ class SeeAllNowPlayingView extends GetView<SeeAllNowPlayingController> {
           pagingController: controller.pagingController,
           builderDelegate: PagedChildBuilderDelegate<Movie>(
               itemBuilder: (context, item, index) {
+            print(index);
             Movie data = item;
             return Padding(
               padding: const EdgeInsets.all(10.0),

@@ -12,9 +12,11 @@ class FavoritesPageView extends GetView<FavoritesPageController> {
   Widget build(BuildContext context) {
     final PageController1 = Get.find<PageIndexController>();
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
         title: const Text('FavoritesPageView'),
         centerTitle: true,
+        backgroundColor: Colors.black,
       ),
       body: Center(
         child: Text(
