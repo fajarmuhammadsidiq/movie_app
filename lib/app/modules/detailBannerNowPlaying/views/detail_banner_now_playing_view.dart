@@ -7,6 +7,7 @@ import 'package:movie_app/app/modules/detailBannerNowPlaying/views/youtube_widge
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import '../../../data/noplaying_model.dart';
 import '../../../data/image_const.dart';
+import '../../../routes/app_pages.dart';
 import '../controllers/detail_banner_now_playing_controller.dart';
 
 class DetailBannerNowPlayingView
@@ -90,7 +91,17 @@ class DetailBannerNowPlayingView
                       top: 50,
                       child: BackButton(
                         color: Colors.white,
-                      ))
+                      )),
+                  Positioned(
+                      bottom: 10,
+                      right: 30,
+                      child: IconButton(
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.bookmark_add_outlined,
+                            color: Colors.red,
+                            size: 35,
+                          )))
                 ],
               ),
             ),
@@ -183,6 +194,7 @@ class DetailBannerNowPlayingView
                       style: TextStyle(color: Colors.white),
                     );
                   }
+                  final item = snapshotCast.data;
                   final genre = snapshotCast.data!.genres!
                       .map((e) => Container(
                             alignment: Alignment.center,
@@ -200,7 +212,7 @@ class DetailBannerNowPlayingView
                           ))
                       .toList();
                   return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
                     child: Container(
                       width: Get.width,
                       color: Colors.black,
@@ -240,13 +252,28 @@ class DetailBannerNowPlayingView
                               children: genre,
                             ),
                             const SizedBox(height: 10),
-                            const Text(
-                              "OVERVIEWS",
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontStyle: FontStyle.italic),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text(
+                                  "OVERVIEWS",
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontStyle: FontStyle.italic),
+                                ),
+                                IconButton(
+                                    onPressed: () {
+                                      Get.toNamed(Routes.WEBVIEW_MOVIES,
+                                          arguments: item);
+                                    },
+                                    icon: const Icon(
+                                      Icons.share,
+                                      color: Colors.red,
+                                      size: 35,
+                                    )),
+                              ],
                             ),
                             const SizedBox(height: 10),
                             Text(
@@ -388,7 +415,7 @@ class DetailBannerNowPlayingView
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(
                     child: LinearProgressIndicator(
-                      backgroundColor: Colors.yellow,
+                      backgroundColor: Colors.red,
                       color: Colors.grey,
                     ),
                   );
@@ -412,7 +439,7 @@ class DetailBannerNowPlayingView
                             child: const Text(
                               "See all",
                               style: TextStyle(
-                                  color: Colors.yellow,
+                                  color: Colors.red,
                                   fontWeight: FontWeight.bold,
                                   fontSize: 20),
                             ),
@@ -441,7 +468,7 @@ class DetailBannerNowPlayingView
                                             image: NetworkImage(
                                                 "${Url.imageLw500}${dataUp?.posterPath}"),
                                             fit: BoxFit.cover),
-                                        color: Colors.yellow,
+                                        color: Colors.red,
                                         borderRadius:
                                             BorderRadius.circular(10)),
                                   ),

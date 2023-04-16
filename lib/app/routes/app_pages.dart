@@ -23,6 +23,8 @@ import '../modules/settingPage/bindings/setting_page_binding.dart';
 import '../modules/settingPage/views/setting_page_view.dart';
 import '../modules/tvPage/bindings/tv_page_binding.dart';
 import '../modules/tvPage/views/tv_page_view.dart';
+import '../modules/webviewMovies/bindings/webview_movies_binding.dart';
+import '../modules/webviewMovies/views/webview_movies_view.dart';
 import '../modules/webviewTV/bindings/webview_t_v_binding.dart';
 import '../modules/webviewTV/views/webview_t_v_view.dart';
 
@@ -97,6 +99,11 @@ class AppPages {
       name: _Paths.WEBVIEW_T_V,
       page: () => const WebviewTVView(),
       binding: WebviewTVBinding(),
+    ),
+    GetPage(
+      name: _Paths.WEBVIEW_MOVIES,
+      page: () => const WebviewMoviesView(),
+      binding: WebviewMoviesBinding(),
     ),
   ];
 }
