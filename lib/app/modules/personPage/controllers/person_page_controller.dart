@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 
 class PersonPageController extends GetxController {
   final PagingController<int, PersonModel> pagingController =
-      PagingController(firstPageKey: 1);
+      PagingController(firstPageKey: 3);
 
   @override
   void onInit() {
