@@ -12,20 +12,21 @@ class PersonPageView extends GetView<PersonPageController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.black,
         appBar: AppBar(
           backgroundColor: Colors.black,
           title: const Text(
-            "Popular Person ",
+            "Popular Person",
             style: TextStyle(color: Colors.white),
           ),
           actions: [
             IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.search,
-                  color: Colors.red,
-                ))
+              onPressed: () {},
+              icon: const Icon(
+                Icons.search,
+                color: Colors.red,
+              ),
+            )
           ],
         ),
         body: Padding(

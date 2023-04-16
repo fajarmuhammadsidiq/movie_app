@@ -23,6 +23,8 @@ import '../modules/settingPage/bindings/setting_page_binding.dart';
 import '../modules/settingPage/views/setting_page_view.dart';
 import '../modules/tvPage/bindings/tv_page_binding.dart';
 import '../modules/tvPage/views/tv_page_view.dart';
+import '../modules/webviewTV/bindings/webview_t_v_binding.dart';
+import '../modules/webviewTV/views/webview_t_v_view.dart';
 
 part 'app_routes.dart';
 
@@ -90,6 +92,11 @@ class AppPages {
       name: _Paths.DETAIL_T_V,
       page: () => const DetailTVView(),
       binding: DetailTVBinding(),
+    ),
+    GetPage(
+      name: _Paths.WEBVIEW_T_V,
+      page: () => const WebviewTVView(),
+      binding: WebviewTVBinding(),
     ),
   ];
 }

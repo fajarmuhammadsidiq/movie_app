@@ -15,14 +15,6 @@ class TvPageView extends GetView<TvPageController> {
       backgroundColor: Colors.black,
       appBar: AppBar(
           elevation: 0,
-          actions: [
-            IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.search,
-                  color: Colors.yellow,
-                ))
-          ],
           title: const Text('TV Series , enjoy with Family'),
           backgroundColor: Colors.black),
       body: ListView(

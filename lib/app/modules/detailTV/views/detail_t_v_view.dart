@@ -7,6 +7,7 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../../data/image_const.dart';
 import '../../../data/tv_model.dart';
+import '../../../routes/app_pages.dart';
 import '../../detailBannerNowPlaying/views/youtube_widget.dart';
 import '../controllers/detail_t_v_controller.dart';
 import 'button_widget.dart';
@@ -96,25 +97,13 @@ class DetailTVView extends GetView<DetailTVController> {
                   Positioned(
                       bottom: 10,
                       right: 30,
-                      child: Row(
-                        children: [
-                          IconButton(
-                              onPressed: () {},
-                              icon: const Icon(
-                                Icons.bookmark_add_outlined,
-                                color: Colors.yellow,
-                                size: 35,
-                              )),
-                          const SizedBox(width: 10),
-                          IconButton(
-                              onPressed: () {},
-                              icon: const Icon(
-                                Icons.share,
-                                color: Colors.yellow,
-                                size: 35,
-                              )),
-                        ],
-                      ))
+                      child: IconButton(
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.bookmark_add_outlined,
+                            color: Colors.yellow,
+                            size: 35,
+                          )))
                 ],
               ),
             ),
@@ -254,12 +243,27 @@ class DetailTVView extends GetView<DetailTVController> {
                             ),
                           ),
                           const SizedBox(height: 10),
-                          const Text(
-                            "Current Season",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Text(
+                                "Current Season",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              IconButton(
+                                  onPressed: () {
+                                    Get.toNamed(Routes.WEBVIEW_T_V,
+                                        arguments: item);
+                                  },
+                                  icon: const Icon(
+                                    Icons.share,
+                                    color: Colors.yellow,
+                                    size: 35,
+                                  )),
+                            ],
                           ),
                           Container(
                             width: Get.width,

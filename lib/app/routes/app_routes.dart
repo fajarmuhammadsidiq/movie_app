@@ -18,6 +18,7 @@ abstract class Routes {
   static const PERSON_PAGE = _Paths.PERSON_PAGE;
   static const TV_PAGE = _Paths.TV_PAGE;
   static const DETAIL_T_V = _Paths.DETAIL_T_V;
+  static const WEBVIEW_T_V = _Paths.WEBVIEW_T_V;
 }
 
 abstract class _Paths {
@@ -34,4 +35,5 @@ abstract class _Paths {
   static const PERSON_PAGE = '/person-page';
   static const TV_PAGE = '/tv-page';
   static const DETAIL_T_V = '/detail-t-v';
+  static const WEBVIEW_T_V = '/webview-t-v';
 }
