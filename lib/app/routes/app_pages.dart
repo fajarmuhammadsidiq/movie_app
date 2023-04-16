@@ -4,12 +4,12 @@ import '../modules/detailBannerNowPlaying/bindings/detail_banner_now_playing_bin
 import '../modules/detailBannerNowPlaying/views/detail_banner_now_playing_view.dart';
 import '../modules/detailNowPlayingPagination/bindings/detail_now_playing_pagination_binding.dart';
 import '../modules/detailNowPlayingPagination/views/detail_now_playing_pagination_view.dart';
+import '../modules/detailTV/bindings/detail_t_v_binding.dart';
+import '../modules/detailTV/views/detail_t_v_view.dart';
 import '../modules/explorePage/bindings/explore_page_binding.dart';
 import '../modules/explorePage/views/explore_page_view.dart';
 import '../modules/favoritesPage/bindings/favorites_page_binding.dart';
 import '../modules/favoritesPage/views/favorites_page_view.dart';
-import '../modules/genresPage/bindings/genres_page_binding.dart';
-import '../modules/genresPage/views/genres_page_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/personPage/bindings/person_page_binding.dart';
@@ -77,11 +77,6 @@ class AppPages {
       binding: SettingPageBinding(),
     ),
     GetPage(
-      name: _Paths.GENRES_PAGE,
-      page: () => const GenresPageView(),
-      binding: GenresPageBinding(),
-    ),
-    GetPage(
       name: _Paths.PERSON_PAGE,
       page: () => const PersonPageView(),
       binding: PersonPageBinding(),
@@ -90,6 +85,11 @@ class AppPages {
       name: _Paths.TV_PAGE,
       page: () => const TvPageView(),
       binding: TvPageBinding(),
+    ),
+    GetPage(
+      name: _Paths.DETAIL_T_V,
+      page: () => const DetailTVView(),
+      binding: DetailTVBinding(),
     ),
   ];
 }

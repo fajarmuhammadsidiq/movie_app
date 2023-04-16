@@ -19,7 +19,7 @@ class SettingPageView extends GetView<SettingPageController> {
       body: Center(
           child: ElevatedButton(
               onPressed: () {
-                controller.fetchPerson(2);
+                controller.recomTV(700391);
               },
               child: Text("tester"))),
       bottomNavigationBar: FloatingNavbar(

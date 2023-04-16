@@ -13,9 +13,9 @@ abstract class Routes {
   static const EXPLORE_PAGE = _Paths.EXPLORE_PAGE;
   static const FAVORITES_PAGE = _Paths.FAVORITES_PAGE;
   static const SETTING_PAGE = _Paths.SETTING_PAGE;
-  static const GENRES_PAGE = _Paths.GENRES_PAGE;
   static const PERSON_PAGE = _Paths.PERSON_PAGE;
   static const TV_PAGE = _Paths.TV_PAGE;
+  static const DETAIL_T_V = _Paths.DETAIL_T_V;
 }
 
 abstract class _Paths {
@@ -29,7 +29,7 @@ abstract class _Paths {
   static const EXPLORE_PAGE = '/explore-page';
   static const FAVORITES_PAGE = '/favorites-page';
   static const SETTING_PAGE = '/setting-page';
-  static const GENRES_PAGE = '/genres-page';
   static const PERSON_PAGE = '/person-page';
   static const TV_PAGE = '/tv-page';
+  static const DETAIL_T_V = '/detail-t-v';
 }

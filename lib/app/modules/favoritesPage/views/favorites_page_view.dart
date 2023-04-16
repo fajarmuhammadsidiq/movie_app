@@ -18,7 +18,7 @@ class FavoritesPageView extends GetView<FavoritesPageController> {
         centerTitle: true,
         backgroundColor: Colors.black,
       ),
-      body: Center(
+      body: const Center(
         child: Text(
           'FavoritesPageView is working',
           style: TextStyle(fontSize: 20),
@@ -27,7 +27,7 @@ class FavoritesPageView extends GetView<FavoritesPageController> {
       bottomNavigationBar: FloatingNavbar(
         selectedItemColor: Colors.white,
         selectedBackgroundColor: Colors.red,
-        backgroundColor: Color.fromARGB(255, 48, 47, 47),
+        backgroundColor: const Color.fromARGB(255, 48, 47, 47),
         onTap: (int i) {
           PageController1.changeIndexPage(i);
         },

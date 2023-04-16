@@ -15,163 +15,92 @@ class DetailBannerNowPlayingView
   @override
   Widget build(BuildContext context) {
     Result? movie = Get.arguments;
+    print(movie?.id);
     final currencyFormatter = NumberFormat.currency(locale: 'en_US');
     return Scaffold(
         backgroundColor: Colors.black,
         body: SingleChildScrollView(
-          child: DefaultTabController(
-            length: 2,
-            child: Column(children: [
-              Container(
-                height: 300,
-                width: Get.width,
-                child: Stack(
-                  children: [
-                    Container(
-                      foregroundDecoration: const BoxDecoration(
-                        gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: [Colors.transparent, Colors.black]),
-                      ),
-                      height: 300,
-                      width: Get.width,
-                      child: Image.network(
-                        "${Url.imageLw500}${movie?.backdropPath}",
-                        fit: BoxFit.cover,
-                      ),
+          child: Column(children: [
+            Container(
+              height: 300,
+              width: Get.width,
+              child: Stack(
+                children: [
+                  Container(
+                    foregroundDecoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [Colors.transparent, Colors.black]),
                     ),
-                    Positioned(
-                      bottom: 90,
-                      left: 20,
-                      child: Column(
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(20),
-                            child: Container(
-                              width: 100,
-                              height: 150,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20)),
-                              child: Image.network(
-                                "${Url.imageLw500}${movie?.posterPath}",
-                                fit: BoxFit.cover,
-                              ),
+                    height: 300,
+                    width: Get.width,
+                    child: Image.network(
+                      "${Url.imageLw500}${movie?.backdropPath}",
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 90,
+                    left: 20,
+                    child: Column(
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: Container(
+                            width: 100,
+                            height: 150,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20)),
+                            child: Image.network(
+                              "${Url.imageLw500}${movie?.posterPath}",
+                              fit: BoxFit.cover,
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                    Positioned(
-                        left: 20,
-                        bottom: 10,
-                        child: Container(
-                          width: 200,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "${movie?.title}",
-                                style: const TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),
-                              ),
-                              Text(
-                                "Rating : ${movie?.voteAverage}",
-                                style: const TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),
-                              ),
-                            ],
-                          ),
-                        )),
-                    const Positioned(
-                        top: 50,
-                        child: BackButton(
-                          color: Colors.white,
-                        ))
-                  ],
-                ),
+                  ),
+                  Positioned(
+                      left: 20,
+                      bottom: 10,
+                      child: Container(
+                        width: 200,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "${movie?.title}",
+                              style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
+                            Text(
+                              "Rating : ${movie?.voteAverage}",
+                              style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
+                          ],
+                        ),
+                      )),
+                  const Positioned(
+                      top: 50,
+                      child: BackButton(
+                        color: Colors.white,
+                      ))
+                ],
               ),
-              Container(
-                height: 180,
-                width: Get.width,
-                child: FutureBuilder(
-                    future: controller.trailerMovie(movie!.id.toString()),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(
-                          child: LinearProgressIndicator(
-                            backgroundColor: Colors.red,
-                            color: Colors.white,
-                          ),
-                        );
-                      }
-
-                      return ListView.separated(
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) {
-                            final trailer = snapshot.data!.results[index];
-
-                            return Stack(
-                              children: [
-                                ImageNetworkWidget(
-                                  radius: 12,
-                                  type: TypeSrcImg.external,
-                                  imageSrc: YoutubePlayer.getThumbnail(
-                                    videoId: trailer.key,
-                                  ),
-                                ),
-                                Positioned.fill(
-                                  child: Center(
-                                    child: Container(
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 6.0,
-                                      ),
-                                      decoration: BoxDecoration(
-                                        color: Colors.red,
-                                        borderRadius: BorderRadius.circular(
-                                          6.0,
-                                        ),
-                                      ),
-                                      child: const Icon(
-                                        Icons.play_arrow,
-                                        color: Colors.white,
-                                        size: 32.0,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Positioned.fill(
-                                  child: Material(
-                                    color: Colors.transparent,
-                                    child: InkWell(
-                                      onTap: () {
-                                        Get.to(
-                                          YoutubePlayerWidget(
-                                            youtubeKey: trailer.key,
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            );
-                          },
-                          separatorBuilder: (context, index) {
-                            return const SizedBox(width: 5);
-                          },
-                          itemCount: snapshot.data!.results.length);
-                    }),
-              ),
-              FutureBuilder<DetailMovie>(
-                  future: controller.detailMovie(movie.id),
-                  builder: (context, snapshotCast) {
-                    if (snapshotCast.connectionState ==
-                        ConnectionState.waiting) {
+            ),
+            Container(
+              height: 180,
+              width: Get.width,
+              child: FutureBuilder(
+                  future: controller.trailerMovie(movie!.id.toString()),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
                       return const Center(
                         child: LinearProgressIndicator(
                           backgroundColor: Colors.red,
@@ -179,29 +108,100 @@ class DetailBannerNowPlayingView
                         ),
                       );
                     }
-                    if (!snapshotCast.hasData) {
-                      return const Text(
-                        "Tidak ada data",
-                        style: TextStyle(color: Colors.white),
-                      );
-                    }
-                    final genre = snapshotCast.data!.genres!
-                        .map((e) => Container(
-                              alignment: Alignment.center,
-                              height: 50,
-                              width: 100,
-                              decoration: BoxDecoration(
-                                  color: const Color.fromARGB(255, 216, 20, 6),
-                                  borderRadius: BorderRadius.circular(20)),
-                              child: Text(
-                                "${e.name}",
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
+
+                    return ListView.separated(
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) {
+                          final trailer = snapshot.data!.results[index];
+
+                          return Stack(
+                            children: [
+                              ImageNetworkWidget(
+                                radius: 12,
+                                type: TypeSrcImg.external,
+                                imageSrc: YoutubePlayer.getThumbnail(
+                                  videoId: trailer.key,
+                                ),
                               ),
-                            ))
-                        .toList();
-                    return Container(
+                              Positioned.fill(
+                                child: Center(
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 6.0,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: Colors.red,
+                                      borderRadius: BorderRadius.circular(
+                                        6.0,
+                                      ),
+                                    ),
+                                    child: const Icon(
+                                      Icons.play_arrow,
+                                      color: Colors.white,
+                                      size: 32.0,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Positioned.fill(
+                                child: Material(
+                                  color: Colors.transparent,
+                                  child: InkWell(
+                                    onTap: () {
+                                      Get.to(
+                                        YoutubePlayerWidget(
+                                          youtubeKey: trailer.key,
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                        separatorBuilder: (context, index) {
+                          return const SizedBox(width: 5);
+                        },
+                        itemCount: snapshot.data!.results.length);
+                  }),
+            ),
+            FutureBuilder<DetailMovie>(
+                future: controller.detailMovie(movie.id),
+                builder: (context, snapshotCast) {
+                  if (snapshotCast.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                      child: LinearProgressIndicator(
+                        backgroundColor: Colors.red,
+                        color: Colors.white,
+                      ),
+                    );
+                  }
+                  if (!snapshotCast.hasData) {
+                    return const Text(
+                      "Tidak ada data",
+                      style: TextStyle(color: Colors.white),
+                    );
+                  }
+                  final genre = snapshotCast.data!.genres!
+                      .map((e) => Container(
+                            alignment: Alignment.center,
+                            height: 30,
+                            width: 150,
+                            decoration: BoxDecoration(
+                                color: const Color.fromARGB(255, 216, 20, 6),
+                                borderRadius: BorderRadius.circular(20)),
+                            child: Text(
+                              "${e.name}",
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ))
+                      .toList();
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    child: Container(
                       width: Get.width,
                       color: Colors.black,
                       child: Column(
@@ -379,26 +379,93 @@ class DetailBannerNowPlayingView
                               ),
                             ),
                           ]),
-                    );
-                  }),
-              Padding(
-                padding:
-                    const EdgeInsets.only(left: 20.0, bottom: 10, right: 20),
-                child: SizedBox(
-                    height: 50,
-                    width: Get.width,
-                    child: ElevatedButton.icon(
-                        style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20)),
-                            backgroundColor:
-                                const Color.fromARGB(255, 216, 20, 6)),
-                        onPressed: () {},
-                        icon: const Icon(Icons.book),
-                        label: const Text("Favorites"))),
-              )
-            ]),
-          ),
+                    ),
+                  );
+                }),
+            FutureBuilder<NowPlaying>(
+              future: controller.recomTV(movie.id),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(
+                    child: LinearProgressIndicator(
+                      backgroundColor: Colors.yellow,
+                      color: Colors.grey,
+                    ),
+                  );
+                }
+                return Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text(
+                            "Simmiliar",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20),
+                          ),
+                          TextButton(
+                            onPressed: () {},
+                            child: const Text(
+                              "See all",
+                              style: TextStyle(
+                                  color: Colors.yellow,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    Container(
+                        height: 280,
+                        width: Get.width,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: snapshot.data?.results.length,
+                          itemBuilder: (context, index) {
+                            var dataUp = snapshot.data?.results[index];
+                            return Padding(
+                              padding: const EdgeInsets.only(
+                                  bottom: 10.0, left: 10, right: 10),
+                              child: Column(
+                                children: [
+                                  Container(
+                                    width: 150,
+                                    height: 200,
+                                    decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                            image: NetworkImage(
+                                                "${Url.imageLw500}${dataUp?.posterPath}"),
+                                            fit: BoxFit.cover),
+                                        color: Colors.yellow,
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                  ),
+                                  SizedBox(height: 10),
+                                  Expanded(
+                                    child: Container(
+                                      width: 150,
+                                      child: Text(
+                                        "${dataUp?.title}",
+                                        style: const TextStyle(
+                                            color: Colors.white),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        )),
+                  ],
+                );
+              },
+            ),
+          ]),
         ));
   }
 }

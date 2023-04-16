@@ -1,100 +1,96 @@
-// To parse this JSON data, do
-//
-//     final tvModels = tvModelsFromJson(jsonString);
-
-import 'dart:convert';
-
-TvModels tvModelsFromJson(String str) => TvModels.fromJson(json.decode(str));
-
-String tvModelsToJson(TvModels data) => json.encode(data.toJson());
-
 class TvModels {
-  TvModels({
-    required this.page,
-    required this.results,
-    required this.totalPages,
-    required this.totalResults,
-  });
+  int? page;
+  List<Results>? results;
+  int? totalPages;
+  int? totalResults;
 
-  int page;
-  List<Result> results;
-  int totalPages;
-  int totalResults;
+  TvModels({this.page, this.results, this.totalPages, this.totalResults});
 
-  factory TvModels.fromJson(Map<String, dynamic> json) => TvModels(
-        page: json["page"],
-        results:
-            List<Result>.from(json["results"].map((x) => Result.fromJson(x))),
-        totalPages: json["total_pages"],
-        totalResults: json["total_results"],
-      );
+  TvModels.fromJson(Map<String, dynamic> json) {
+    page = json['page'];
+    if (json['results'] != null) {
+      results = <Results>[];
+      json['results'].forEach((v) {
+        results!.add(Results.fromJson(v));
+      });
+    }
+    totalPages = json['total_pages'];
+    totalResults = json['total_results'];
+  }
 
-  Map<String, dynamic> toJson() => {
-        "page": page,
-        "results": List<dynamic>.from(results.map((x) => x.toJson())),
-        "total_pages": totalPages,
-        "total_results": totalResults,
-      };
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['page'] = page;
+    if (results != null) {
+      data['results'] = results!.map((v) => v.toJson()).toList();
+    }
+    data['total_pages'] = totalPages;
+    data['total_results'] = totalResults;
+    return data;
+  }
 }
 
-class Result {
-  Result({
-    required this.backdropPath,
-    required this.firstAirDate,
-    required this.genreIds,
-    required this.id,
-    required this.name,
-    required this.originCountry,
-    required this.originalName,
-    required this.overview,
-    required this.popularity,
-    required this.posterPath,
-    required this.voteAverage,
-    required this.voteCount,
-  });
+class Results {
+  String? backdropPath;
+  String? firstAirDate;
+  List<int>? genreIds;
+  int? id;
+  String? name;
+  List<String>? originCountry;
+  String? originalLanguage;
+  String? originalName;
+  String? overview;
+  double? popularity;
+  String? posterPath;
+  var voteAverage;
+  int? voteCount;
 
-  String backdropPath;
-  DateTime firstAirDate;
-  List<int> genreIds;
-  int id;
-  String name;
-  List<String> originCountry;
+  Results(
+      {this.backdropPath,
+      this.firstAirDate,
+      this.genreIds,
+      this.id,
+      this.name,
+      this.originCountry,
+      this.originalLanguage,
+      this.originalName,
+      this.overview,
+      this.popularity,
+      this.posterPath,
+      this.voteAverage,
+      this.voteCount});
 
-  String originalName;
-  String overview;
-  double popularity;
-  String posterPath;
-  double voteAverage;
-  int voteCount;
+  Results.fromJson(Map<String, dynamic>? json) {
+    backdropPath = json?['backdrop_path'];
+    firstAirDate = json?['first_air_date'];
+    genreIds = json?['genre_ids'].cast<int>();
+    id = json?['id'];
+    name = json?['name'];
+    originCountry = json?['origin_country'].cast<String>();
+    originalLanguage = json?['original_language'];
+    originalName = json?['original_name'];
+    overview = json?['overview'];
+    popularity = json?['popularity'];
+    posterPath = json?['poster_path'];
+    voteAverage = json?['vote_average'];
+    voteCount = json?['vote_count'];
+  }
 
-  factory Result.fromJson(Map<String, dynamic> json) => Result(
-        backdropPath: json["backdrop_path"],
-        firstAirDate: DateTime.parse(json["first_air_date"]),
-        genreIds: List<int>.from(json["genre_ids"].map((x) => x)),
-        id: json["id"],
-        name: json["name"],
-        originCountry: List<String>.from(json["origin_country"].map((x) => x)),
-        originalName: json["original_name"],
-        overview: json["overview"],
-        popularity: json["popularity"]?.toDouble(),
-        posterPath: json["poster_path"],
-        voteAverage: json["vote_average"]?.toDouble(),
-        voteCount: json["vote_count"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "backdrop_path": backdropPath,
-        "first_air_date":
-            "${firstAirDate.year.toString().padLeft(4, '0')}-${firstAirDate.month.toString().padLeft(2, '0')}-${firstAirDate.day.toString().padLeft(2, '0')}",
-        "genre_ids": List<dynamic>.from(genreIds.map((x) => x)),
-        "id": id,
-        "name": name,
-        "origin_country": List<dynamic>.from(originCountry.map((x) => x)),
-        "original_name": originalName,
-        "overview": overview,
-        "popularity": popularity,
-        "poster_path": posterPath,
-        "vote_average": voteAverage,
-        "vote_count": voteCount,
-      };
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['backdrop_path'] = backdropPath;
+    data['first_air_date'] = firstAirDate;
+    data['genre_ids'] = genreIds;
+    data['id'] = id;
+    data['name'] = name;
+    data['origin_country'] = originCountry;
+    data['original_language'] = originalLanguage;
+    data['original_name'] = originalName;
+    data['overview'] = overview;
+    data['popularity'] = popularity;
+    data['poster_path'] = posterPath;
+    data['vote_average'] = voteAverage;
+    data['vote_count'] = voteCount;
+    return data;
+  }
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../data/const.dart';
 import '../../../data/tv_model.dart';
+import '../../../routes/app_pages.dart';
 import '../controllers/tv_page_controller.dart';
 
 class TvPageView extends GetView<TvPageController> {
@@ -76,7 +77,7 @@ class TvPageView extends GetView<TvPageController> {
                         ),
                       ),
                       CarouselSlider.builder(
-                        itemCount: snapshot.data?.results.length,
+                        itemCount: snapshot.data?.results!.length,
                         options: CarouselOptions(
                             height: 300,
                             aspectRatio: 2.0,
@@ -85,13 +86,16 @@ class TvPageView extends GetView<TvPageController> {
                             autoPlayCurve: Curves.fastOutSlowIn,
                             scrollDirection: Axis.horizontal),
                         itemBuilder: (ctx, index, realIdx) {
-                          final movie = snapshot.data?.results[index];
+                          final movie = snapshot.data?.results![index];
 
                           return Stack(children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(20),
                               child: GestureDetector(
-                                onTap: () {},
+                                onTap: () {
+                                  Get.toNamed(Routes.DETAIL_T_V,
+                                      arguments: movie);
+                                },
                                 child: Container(
                                   foregroundDecoration: const BoxDecoration(
                                     gradient: LinearGradient(
@@ -122,7 +126,7 @@ class TvPageView extends GetView<TvPageController> {
                                     fit: BoxFit.cover,
                                     height: 150,
                                     width: 100,
-                                    "${Url.imageLw500}${movie?.posterPath}"),
+                                    "${Url.imageLw500}${movie?.posterPath == null ? movie?.backdropPath : movie?.posterPath}"),
                               ),
                             ),
                             Positioned(
@@ -196,9 +200,9 @@ class TvPageView extends GetView<TvPageController> {
                       width: Get.width,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        itemCount: snapshot.data?.results.length,
+                        itemCount: snapshot.data?.results!.length,
                         itemBuilder: (context, index) {
-                          final dataUp = snapshot.data?.results[index];
+                          final dataUp = snapshot.data?.results![index];
                           return Padding(
                             padding: const EdgeInsets.only(
                                 bottom: 10.0, left: 10, right: 10),
@@ -220,7 +224,7 @@ class TvPageView extends GetView<TvPageController> {
                                   child: Container(
                                     width: 150,
                                     child: Text(
-                                      dataUp.name,
+                                      dataUp.name!,
                                       style:
                                           const TextStyle(color: Colors.white),
                                     ),
@@ -274,9 +278,9 @@ class TvPageView extends GetView<TvPageController> {
                               width: Get.width,
                               child: ListView.builder(
                                 scrollDirection: Axis.horizontal,
-                                itemCount: snapshot.data?.results.length,
+                                itemCount: snapshot.data?.results!.length,
                                 itemBuilder: (context, index) {
-                                  var dataUp = snapshot.data?.results[index];
+                                  var dataUp = snapshot.data?.results![index];
                                   return Padding(
                                     padding: const EdgeInsets.only(
                                         bottom: 10.0, left: 10, right: 10),

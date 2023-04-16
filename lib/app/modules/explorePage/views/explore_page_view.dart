@@ -14,15 +14,15 @@ class ExplorePageView extends GetView<ExplorePageController> {
   Widget build(BuildContext context) {
     final PageController1 = Get.find<PageIndexController>();
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.black,
       extendBody: true,
       appBar: AppBar(
         elevation: 0,
         title: const Text(
           'Explore',
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.black,
         centerTitle: true,
       ),
       body: Padding(
@@ -33,12 +33,12 @@ class ExplorePageView extends GetView<ExplorePageController> {
                 label: "POPULAR PERSON",
                 backdrop: "assets/person.jpg",
                 page: Routes.PERSON_PAGE),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ExploreWidget(
                 label: "TV SERIES",
                 backdrop: "assets/tv.jpg",
                 page: Routes.TV_PAGE),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ExploreWidget(label: "MOVIE SERIES", backdrop: "assets/movie.jpg"),
           ],
         ),
@@ -46,7 +46,7 @@ class ExplorePageView extends GetView<ExplorePageController> {
       bottomNavigationBar: FloatingNavbar(
         selectedItemColor: Colors.white,
         selectedBackgroundColor: Colors.red,
-        backgroundColor: Color.fromARGB(255, 48, 47, 47),
+        backgroundColor: const Color.fromARGB(255, 48, 47, 47),
         onTap: (int i) {
           PageController1.changeIndexPage(i);
         },
